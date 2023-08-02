@@ -1,0 +1,52 @@
+.logo-heading {
+    font-size: 42px;
+    margin-top: 0px;
+}
+
+.logo-tag {
+    font-size: 22.4px;
+    margin-top: -9%;
+}
+
+.logo-image {
+    width: 12%;
+    position: absolute;
+    left: 2.6vw;
+    top: 4vh;
+    height: 7%;
+}
+
+.logo-tagline {
+    position: absolute;
+    left: 14vw;
+    top: 2vw;
+    padding-left: 40px;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 8vh;
+}
+
+.left-top-logo {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.loggedin-user {
+    display: flex;
+    flex-direction: row;
+    font-size: 32px;
+    gap: 15px;
+    margin-right: -11.2px;
+}
+
+.loggedin-user>p {
+    display: inline;
+}
+
+.user-image {
+    margin-bottom: 2.5%;
+}

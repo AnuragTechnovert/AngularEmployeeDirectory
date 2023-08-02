@@ -1,0 +1,99 @@
+.emp-details-popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 35%;
+    bottom: 8%;
+    top: 2%;
+    width: 34%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 10px 20px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+    height: 94vh;
+}
+
+.emp-details>h2 {
+    margin-left: 7%;
+    color: #2f7795;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-top: -4%;
+    margin-bottom: 20px;
+}
+
+.employee-details {
+    display: table;
+    width: 85%;
+    margin: auto;
+    border-collapse: collapse;
+    height: 75vh;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.emp-detail-title {
+    font-size: larger;
+    font-weight: bold;
+    display: table-cell;
+}
+
+.emp-detail-data {
+    font-size: larger;
+    display: table-cell;
+}
+
+.btn-edit-details {
+    display: inline-block;
+    background-color: rgb(123 188 26);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+    width: 8vw;
+    cursor: pointer;
+    margin: 20px 10px;
+}
+
+.btn-edit-details:hover {
+    background-color: rgb(105, 155, 31);
+}
+
+.btn-delete-emp {
+    background-color: tomato;
+    border: 1px solid rgba(172, 169, 169, 0.455);
+    color: #fff;
+    padding: 10px;
+    font-size: 20px;
+    width: 8vw;
+    cursor: pointer;
+    margin: 20px 10px;
+}
+
+.btn-delete-emp:hover {
+    background-color: red;
+}
+
+.btns-emp-detail-form {
+    margin-left: 24%;
+}
+
+.card-icon {
+    color: #969595;
+}
+
+.top-close-mark {
+    background: none;
+    border: none;
+    position: relative;
+    left: 92%;
+    cursor: pointer;
+    padding-top: 5%;
+    font-size: larger;
+}
+
+.top-close-mark:hover {
+    color: #8f8787d9;
+}

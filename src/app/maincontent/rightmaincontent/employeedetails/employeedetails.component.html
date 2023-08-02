@@ -1,0 +1,45 @@
+<div class="emp-details">
+    <button class="top-close-mark" (click)=closeDetails()>&#x2715;</button>
+    <h2>Employee Details</h2>
+    <div class="employee-details">
+        <div class="table-row">
+            <div class="emp-detail-title">First Name</div>
+            <div class="emp-detail-data">{{selectedEmployee?.firstName}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Last Name</div>
+            <div class="emp-detail-data">{{selectedEmployee?.lastName}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Preferred Name</div>
+            <div class="emp-detail-data">{{selectedEmployee?.preferredName}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Email</div>
+            <div class="emp-detail-data">{{selectedEmployee?.email}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Job Title</div>
+            <div class="emp-detail-data">{{selectedEmployee?.jobTitle}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Office</div>
+            <div class="emp-detail-data">{{selectedEmployee?.office}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Department</div>
+            <div class="emp-detail-data">{{selectedEmployee?.department}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Phone Number</div>
+            <div class="emp-detail-data">{{selectedEmployee?.phoneNumber}}</div>
+        </div>
+        <div class="table-row">
+            <div class="emp-detail-title">Skype ID</div>
+            <div class="emp-detail-data">{{selectedEmployee?.skypeId}}</div>
+        </div>
+    </div>
+    <div class="btns-emp-detail-form">
+        <button class="btn-delete-emp" (click)="deleteEmp(selectedEmployee!.id)">Delete</button>
+        <button class="btn-edit-details" (click)="openEditEmployeeForm(selectedEmployee!)">Edit</button>
+    </div>

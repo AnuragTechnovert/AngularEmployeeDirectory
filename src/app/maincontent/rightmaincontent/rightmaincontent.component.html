@@ -1,0 +1,44 @@
+<div class="main-content-container">
+    <div class="main-content-search">
+        <div class="alphabets">
+            <button class="btn-alluser" (click)="cardsContainerReset()"><img src="../../../assets/user.png" alt="" class="btn-user"></button>
+            <button *ngFor="let alphabet of alphabets" (click)="searchByAlphabet(alphabet)">{{alphabet}}</button>
+            <!-- Alphabets will append her -->
+        </div>
+        <form id="searchForm">
+            <div class="search-container">
+                <div>
+                    <label class="search-label">Search</label>
+                    <span class="search">
+                        <span>&#128269;</span>
+                        <input type="search" class="search-input-box" placeholder="Enter any Keyword" name="searchQuery"
+                            [(ngModel)]="searchQuery" (input)="search()">
+                    </span>
+                    <button class="btn-clear-search" (click)="cardsContainerReset()">Clear</button>
+                </div>
+                <div>
+                    <label class="search-label">Filter by</label>
+                    <select class="search-filter-list" [(ngModel)]="filterValue" name="filterValue">
+                        <option value="preferredname" selected>Preferred Name</option>
+                        <option value="department">Department</option>
+                        <option value="office">Office</option>
+                        <option value="jobtitle">Job Title</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn-add-emp" (click)="openEmployeeForm()">Add Employee</button>
+                </div>
+            </div>
+        </form>
+        <div class="note">
+            <h4>Note:</h4>
+            <p>Please use the advanced filter options to refine your results.</p>
+        </div>
+        <div class="employees-cards-container" id="employeesCardsContainer">
+            <app-employeecardcomponent *ngFor="let employee of  sharedVaribleServiceRef.employeesData" [employee]="employee"
+                (cardClick)="openDetails($event)"> <!-- Employee Cards will append here -->
+            </app-employeecardcomponent>
+        </div>
+        <div id="empDetailContainer" class="emp-details-popup"> <!-- Employee Details will append here -->
+            <app-employeedetails [selectedEmployee]="selectedEmployee"></app-employeedetails>
+        </div>
