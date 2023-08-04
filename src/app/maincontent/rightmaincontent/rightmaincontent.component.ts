@@ -19,8 +19,6 @@ export class RightmaincontentComponent {
   searchQuery: string = '';
   filterValue: string = 'preferredname';
 
-
-
   constructor(sharedVaribleServiceRef: SharedVaribleService, employeeFormServiceRef: EmployeeFormService) {
     this.sharedVaribleServiceRef = sharedVaribleServiceRef;
     this.employeeFormServiceRef = employeeFormServiceRef;
@@ -40,17 +38,13 @@ export class RightmaincontentComponent {
     getElement('userFormContainer').style.display = "block";
   }
 
-  searchByAlphabet = (alphabet: string): void => {
-    if (this.sharedVaribleServiceRef.filteredData) {
-      this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.filteredData!.filter((emp: any) => { return emp.firstName.toLowerCase().startsWith(alphabet.toLowerCase()) });
-    }
-    else {
-      let empdata: any[] = [];
-      empdata = this.sharedVaribleServiceRef.employeesData.filter((emp: any) => { return emp.firstName.toLowerCase().startsWith(alphabet.toLowerCase()) });
-    }
+  searchByAlphabet (alphabet: string): void {
+    if (this.sharedVaribleServiceRef.filteredData)
+      this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData!.filter((emp: any) => { return emp.firstName.toLowerCase().startsWith(alphabet.toLowerCase()) });
+    
   }
 
-  search = (): void => {
+  search (): void {
     let filterValue = this.filterValue;
     let searchValue = this.searchQuery.toLowerCase();
 

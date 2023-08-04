@@ -11,7 +11,6 @@ export let setElementValue = (elementId:string, value:any)=>{
     (<HTMLInputElement>document.getElementById(elementId)).value = value;
 }
 
-// This method is used to find the employee by id
 export let findById = (id: number,list:any): Employee => {
     let emp = list.find((data:any) =>data.id === id);
     return emp!;

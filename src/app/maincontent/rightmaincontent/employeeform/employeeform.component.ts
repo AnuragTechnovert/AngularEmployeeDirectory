@@ -1,11 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { findById, getElement, getElementValue, setElementValue, validateEmail, validatePhoneNumber } from '../helper';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { findById } from '../helper';
 import { Employee } from '../variables';
-import { RightmaincontentComponent } from '../rightmaincontent.component';
 import { NgForm } from '@angular/forms';
 import { SharedVaribleService } from '../employeeservices/variblesservice';
 import { EmployeeFormService } from '../employeeservices/employeeformservice';
-
 
 @Component({
   selector: 'app-employeeform',
@@ -66,9 +64,9 @@ export class EmployeeformComponent implements AfterViewInit {
   }
 
   updateEmployeeDetails(employeeForm: NgForm): void {
-    
+
     if (this.employeeFormServiceRef!.isFormValid(employeeForm)) {
-      let employeeToUpdate = this.sharedVaribleServiceRef?.employeesData.find(emp => emp.id == this.sharedVaribleServiceRef?.selectedEmployeeId);
+      let employeeToUpdate = findById(this.sharedVaribleServiceRef?.selectedEmployeeId, this.sharedVaribleServiceRef?.employeesData)
       employeeToUpdate!.firstName = employeeForm.value.firstName;
       employeeToUpdate!.lastName = employeeForm.value.lastName;
       employeeToUpdate!.preferredName = employeeForm.value.preferredName;
