@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedVaribleService } from './maincontent/rightmaincontent/employeeservices/variblesservice';
 import { EmployeecardcomponentComponent } from './maincontent/rightmaincontent/employeecardcomponent/employeecardcomponent.component';
 import { EmployeedetailsComponent } from './maincontent/rightmaincontent/employeedetails/employeedetails.component';
-import { EmployeeFormService } from './maincontent/rightmaincontent/employeeservices/employee-formservice';
+import { EmployeeFormService } from './maincontent/rightmaincontent/employeeservices/employeeformservice';
 
 @NgModule({
   declarations: [

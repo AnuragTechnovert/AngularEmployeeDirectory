@@ -15,27 +15,6 @@ export class EmployeeFormService {
     this.sharedVaribleServiceRef = sharedVaribleServiceRef;
    }
 
-  populateEditEmpDetailsForm(selectedEmployee: Employee) {
-    console.log(this.employeeForm);
-    getElement('empDetailContainer').style.display = "none";
-    getElement("buttonSubmit").style.display = "none";
-    getElement("buttonSubmit").disabled = true;
-    getElement("buttonUpdate").style.display = "inline-block";
-    this.openEmployeeForm();
-    document.querySelector(".emp-form-title")!.textContent = "Edit Employee";
-    this.employeeForm.setValue({
-      firstName: selectedEmployee.firstName,
-      lastName: selectedEmployee.lastName,
-      preferredName: selectedEmployee.preferredName,
-      email: selectedEmployee.email,
-      jobTitle: selectedEmployee.jobTitle,
-      office: selectedEmployee.office,
-      department: selectedEmployee.department,
-      phoneNumber: selectedEmployee.phoneNumber,
-      skypeId: selectedEmployee.skypeId,
-    });
-  }
-
   isFormValid = (employeeform: NgForm): boolean => {
     let firstName = employeeform.value.firstName.trim();
     let lastName = employeeform.value.lastName.trim();
@@ -93,11 +72,12 @@ export class EmployeeFormService {
     getElement("buttonUpdate").style.display = "none";
     getElement("overlay").style.display = "none";
     getElement("userFormContainer").style.display = "none";
+    this.employeeForm.reset();
   }
   
   saveDetails = (): void => {
     localStorage.setItem("employees", JSON.stringify(this.sharedVaribleServiceRef!.employeesData));
-    this.loadEmpCards(this.sharedVaribleServiceRef!.employeesData);
+    this.sharedVaribleServiceRef!.updateEmployees(this.sharedVaribleServiceRef!.employeesData);
     this.closeEmployeeForm();
     this.closeDetails();
   }
@@ -105,9 +85,5 @@ export class EmployeeFormService {
   closeDetails = (): void => {  // ----> this method closes the emp details popup
     getElement("overlay").style.display = "none";
     getElement("empDetailContainer").style.display = "none";
-  }
-
-  loadEmpCards(data: Employee[]) {
-    this.sharedVaribleServiceRef!.employeesData = data;
   }
 }

@@ -4,7 +4,7 @@ import { Employee } from '../variables';
 import { RightmaincontentComponent } from '../rightmaincontent.component';
 import { NgForm } from '@angular/forms';
 import { SharedVaribleService } from '../employeeservices/variblesservice';
-import { EmployeeFormService } from '../employeeservices/employee-formservice';
+import { EmployeeFormService } from '../employeeservices/employeeformservice';
 
 
 @Component({
@@ -17,7 +17,6 @@ export class EmployeeformComponent implements AfterViewInit {
 
   lastEmpid: number = 0;
   employeeFormServiceRef: EmployeeFormService | undefined;
-
   sharedVaribleServiceRef: SharedVaribleService | undefined;
 
   @ViewChild('employeeForm') employeeForm!: NgForm;
@@ -29,7 +28,6 @@ export class EmployeeformComponent implements AfterViewInit {
 
     if (this.sharedVaribleServiceRef.employeesData)
       this.lastEmpid = this.sharedVaribleServiceRef!.employeesData[this.sharedVaribleServiceRef!.employeesData.length - 1].id;
-
   }
 
   ngAfterViewInit() {
@@ -62,27 +60,26 @@ export class EmployeeformComponent implements AfterViewInit {
         skypeId: skypeId
       }
       this.sharedVaribleServiceRef!.employeesData.push(emp);
-      localStorage.setItem('employees', JSON.stringify(this.sharedVaribleServiceRef!.employeesData));
-      alert("Employee data added successfully");
       this.employeeFormServiceRef.saveDetails();
+      alert("Employee data added successfully");
     }
   }
 
-  updateEmployeeDetails(employeeform: NgForm) {
-    //  let existEmployee = this.sharedVaribleServiceRef?.employeesData.find((emp:any)=> emp.id == employeeform.value.id);
-    if (this.employeeFormServiceRef!.isFormValid(employeeform)) {
-    let employeeToUpdate = findById(employeeform.value.id, this.sharedVaribleServiceRef?.employeesData);
-    employeeToUpdate.firstName = employeeform.value.firstName;
-    employeeToUpdate.lastName = employeeform.value.lastName;
-    employeeToUpdate.preferredName = employeeform.value.preferredName;
-    employeeToUpdate.email = employeeform.value.email;
-    employeeToUpdate.jobTitle = employeeform.value.jobTitle;
-    employeeToUpdate.office = employeeform.value.office;
-    employeeToUpdate.department = employeeform.value.department;
-    employeeToUpdate.phoneNumber = employeeform.value.phoneNumber;
-    employeeToUpdate.skypeId = employeeform.value.skypeId;
-    this.employeeFormServiceRef!.saveDetails();
-    alert("Details Updated Successfully");
+  updateEmployeeDetails(employeeForm: NgForm): void {
+    
+    if (this.employeeFormServiceRef!.isFormValid(employeeForm)) {
+      let employeeToUpdate = this.sharedVaribleServiceRef?.employeesData.find(emp => emp.id == this.sharedVaribleServiceRef?.selectedEmployeeId);
+      employeeToUpdate!.firstName = employeeForm.value.firstName;
+      employeeToUpdate!.lastName = employeeForm.value.lastName;
+      employeeToUpdate!.preferredName = employeeForm.value.preferredName;
+      employeeToUpdate!.email = employeeForm.value.email;
+      employeeToUpdate!.jobTitle = employeeForm.value.jobTitle;
+      employeeToUpdate!.office = employeeForm.value.office;
+      employeeToUpdate!.department = employeeForm.value.department;
+      employeeToUpdate!.phoneNumber = employeeForm.value.phoneNumber;
+      employeeToUpdate!.skypeId = employeeForm.value.skypeId;
+      this.employeeFormServiceRef!.saveDetails();
+      alert("Details Updated Successfully");
     }
   }
 

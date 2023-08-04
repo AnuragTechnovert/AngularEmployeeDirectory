@@ -1,7 +1,7 @@
 <div class="main-content-container">
     <div class="main-content-search">
         <div class="alphabets">
-            <button class="btn-alluser" (click)="cardsContainerReset()"><img src="../../../assets/user.png" alt="" class="btn-user"></button>
+            <button class="btn-alluser" (click)="cardsContainerReset()"><i class="fa-solid fa-user fa-lg"></i></button>
             <button *ngFor="let alphabet of alphabets" (click)="searchByAlphabet(alphabet)">{{alphabet}}</button>
             <!-- Alphabets will append her -->
         </div>
@@ -35,9 +35,10 @@
             <p>Please use the advanced filter options to refine your results.</p>
         </div>
         <div class="employees-cards-container" id="employeesCardsContainer">
-            <app-employeecardcomponent *ngFor="let employee of  sharedVaribleServiceRef.employeesData" [employee]="employee"
-                (cardClick)="openDetails($event)"> <!-- Employee Cards will append here -->
+            <app-employeecardcomponent *ngFor="let employee of  sharedVaribleServiceRef.filteredData" [employee]="employee"
+                (cardClick)="openDetails($event)" > <!-- Employee Cards will append here -->
             </app-employeecardcomponent>
+            <h2 *ngIf="!sharedVaribleServiceRef.filteredData">No Employee Found...</h2 >
         </div>
         <div id="empDetailContainer" class="emp-details-popup"> <!-- Employee Details will append here -->
             <app-employeedetails [selectedEmployee]="selectedEmployee"></app-employeedetails>
