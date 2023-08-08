@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { findById } from '../helper';
 import { Employee } from '../variables';
 import { NgForm } from '@angular/forms';
-import { SharedVaribleService } from '../employeeservices/variblesservice';
-import { EmployeeFormService } from '../employeeservices/employeeformservice';
+import { SharedService } from '../employeeservices/sharedservice';
+import { EmployeeService } from '../employeeservices/employeeservice';
 
 @Component({
   selector: 'app-employeeform',
@@ -14,27 +14,27 @@ import { EmployeeFormService } from '../employeeservices/employeeformservice';
 export class EmployeeformComponent implements AfterViewInit {
 
   lastEmpid: number = 0;
-  employeeFormServiceRef: EmployeeFormService | undefined;
-  sharedVaribleServiceRef: SharedVaribleService | undefined;
+  employeeService: EmployeeService | undefined;
+  sharedservice: SharedService | undefined;
 
   @ViewChild('employeeForm') employeeForm!: NgForm;
 
-  constructor(sharedVaribleServiceRef: SharedVaribleService, employeeFormServiceRef: EmployeeFormService) {
+  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
 
-    this.employeeFormServiceRef = employeeFormServiceRef;
-    this.sharedVaribleServiceRef = sharedVaribleServiceRef;
+    this.employeeService = employeeService;
+    this.sharedservice = sharedservice;
 
-    if (this.sharedVaribleServiceRef.employeesData)
-      this.lastEmpid = this.sharedVaribleServiceRef!.employeesData[this.sharedVaribleServiceRef!.employeesData.length - 1].id;
+    if (this.sharedservice.employeesData)
+      this.lastEmpid = this.sharedservice!.employeesData[this.sharedservice!.employeesData.length - 1].id;
   }
 
   ngAfterViewInit() {
-    this.employeeFormServiceRef!.employeeForm = this.employeeForm;
+    this.employeeService!.employeeForm = this.employeeForm;
   }
 
   addEmployeeDetails = (employeeform: NgForm): void => {
 
-    if (this.employeeFormServiceRef?.isFormValid(employeeform)) {
+    if (this.employeeService?.isFormValid(employeeform)) {
       this.lastEmpid++;
       let firstName = employeeform.value.firstName;
       let lastName = employeeform.value.lastName;
@@ -57,16 +57,16 @@ export class EmployeeformComponent implements AfterViewInit {
         phoneNumber: phoneNumber,
         skypeId: skypeId
       }
-      this.sharedVaribleServiceRef!.employeesData.push(emp);
-      this.employeeFormServiceRef.saveDetails();
+      this.sharedservice!.employeesData.push(emp);
+      this.employeeService.saveDetails();
       alert("Employee data added successfully");
     }
   }
 
   updateEmployeeDetails(employeeForm: NgForm): void {
 
-    if (this.employeeFormServiceRef!.isFormValid(employeeForm)) {
-      let employeeToUpdate = findById(this.sharedVaribleServiceRef?.selectedEmployeeId, this.sharedVaribleServiceRef?.employeesData)
+    if (this.employeeService!.isFormValid(employeeForm)) {
+      let employeeToUpdate = findById(this.sharedservice?.selectedEmployeeId, this.sharedservice?.employeesData)
       employeeToUpdate!.firstName = employeeForm.value.firstName;
       employeeToUpdate!.lastName = employeeForm.value.lastName;
       employeeToUpdate!.preferredName = employeeForm.value.preferredName;
@@ -76,14 +76,14 @@ export class EmployeeformComponent implements AfterViewInit {
       employeeToUpdate!.department = employeeForm.value.department;
       employeeToUpdate!.phoneNumber = employeeForm.value.phoneNumber;
       employeeToUpdate!.skypeId = employeeForm.value.skypeId;
-      this.employeeFormServiceRef!.saveDetails();
+      this.employeeService!.saveDetails();
       alert("Details Updated Successfully");
     }
   }
 
   closeEmployeeForm() {
-    this.sharedVaribleServiceRef!.isEditMode = false;
-    this.employeeFormServiceRef?.closeEmployeeForm();
+    this.sharedservice!.isEditMode = false;
+    this.employeeService?.closeEmployeeForm();
   }
 }
 

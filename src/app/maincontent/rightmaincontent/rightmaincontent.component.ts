@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Employee, alphabets } from './variables';
 import { getElement } from './helper';
-import { SharedVaribleService } from './employeeservices/variblesservice';
-import { EmployeeFormService } from './employeeservices/employeeformservice';
+import { SharedService } from './employeeservices/sharedservice';
+import { EmployeeService } from './employeeservices/employeeservice';
 
 @Component({
   selector: 'app-rightmaincontent',
@@ -13,15 +13,15 @@ import { EmployeeFormService } from './employeeservices/employeeformservice';
 export class RightmaincontentComponent {
 
   alphabets: string[] | undefined;
-  sharedVaribleServiceRef: any;
+  sharedservice: any;
   selectedEmployee: Employee | undefined;
-  employeeFormServiceRef: EmployeeFormService | undefined;
+  employeeService: EmployeeService | undefined;
   searchQuery: string = '';
   filterValue: string = 'preferredname';
 
-  constructor(sharedVaribleServiceRef: SharedVaribleService, employeeFormServiceRef: EmployeeFormService) {
-    this.sharedVaribleServiceRef = sharedVaribleServiceRef;
-    this.employeeFormServiceRef = employeeFormServiceRef;
+  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
+    this.sharedservice = sharedservice;
+    this.employeeService = employeeService;
     this.alphabets = alphabets;
   }
 
@@ -39,8 +39,8 @@ export class RightmaincontentComponent {
   }
 
   searchByAlphabet (alphabet: string): void {
-    if (this.sharedVaribleServiceRef.filteredData)
-      this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData!.filter((emp: any) => { return emp.firstName.toLowerCase().startsWith(alphabet.toLowerCase()) });
+    if (this.sharedservice.filteredData)
+      this.sharedservice.filteredData = this.sharedservice.employeesData!.filter((emp: any) => { return emp.firstName.toLowerCase().startsWith(alphabet.toLowerCase()) });
     
   }
 
@@ -50,19 +50,19 @@ export class RightmaincontentComponent {
 
     switch (filterValue) {
       case "preferredname":
-        this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData.filter((emp: any) => emp.preferredName.toLowerCase().includes(searchValue));
+        this.sharedservice.filteredData = this.sharedservice.employeesData.filter((emp: any) => emp.preferredName.toLowerCase().includes(searchValue));
         break;
       case "department":
-        this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData.filter((emp: any) => emp.department.toLowerCase().includes(searchValue));
+        this.sharedservice.filteredData = this.sharedservice.employeesData.filter((emp: any) => emp.department.toLowerCase().includes(searchValue));
         break;
       case "office":
-        this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData.filter((emp: any) => emp.office.toLowerCase().includes(searchValue));
+        this.sharedservice.filteredData = this.sharedservice.employeesData.filter((emp: any) => emp.office.toLowerCase().includes(searchValue));
         break;
       case "jobtitle":
-        this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData.filter((emp: any) => emp.jobTitle.toLowerCase().includes(searchValue));
+        this.sharedservice.filteredData = this.sharedservice.employeesData.filter((emp: any) => emp.jobTitle.toLowerCase().includes(searchValue));
         break;
       default:
-        this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData;
+        this.sharedservice.filteredData = this.sharedservice.employeesData;
         break;
     }
   }
@@ -70,7 +70,7 @@ export class RightmaincontentComponent {
   cardsContainerReset = () => {
     this.searchQuery = "";
     this.filterValue = 'preferredname';
-    this.sharedVaribleServiceRef.filteredData = this.sharedVaribleServiceRef.employeesData;
+    this.sharedservice.filteredData = this.sharedservice.employeesData;
   }
 }
 
