@@ -1,7 +1,7 @@
 import { Injectable, ViewChild } from '@angular/core';
-import { findById, getElement, getElementValue, validateEmail, validatePhoneNumber } from '../helper';
+import { findById, getElement, getElementValue, validateEmail, validatePhoneNumber } from '../../maincontent/rightmaincontent/helper';
 import { NgForm } from '@angular/forms';
-import { Employee } from '../variables';
+import { Employee } from '../../maincontent/rightmaincontent/variables';
 import { SharedService } from './sharedservice';
 
 @Injectable({
@@ -9,10 +9,10 @@ import { SharedService } from './sharedservice';
 })
 export class EmployeeService {
   employeeForm!: any;   //  data get filled in this variable in employeeform component
-  sharedVaribleServiceRef : SharedService | undefined;
+  sharedService : SharedService | undefined;
 
-  constructor(sharedVaribleServiceRef:SharedService) {
-    this.sharedVaribleServiceRef = sharedVaribleServiceRef;
+  constructor(sharedService:SharedService) {
+    this.sharedService = sharedService;
    }
 
   isFormValid = (employeeform: NgForm): boolean => {
@@ -76,8 +76,8 @@ export class EmployeeService {
   }
   
   saveDetails = (): void => {
-    localStorage.setItem("employees", JSON.stringify(this.sharedVaribleServiceRef!.employeesData));
-    this.sharedVaribleServiceRef!.updateEmployees(this.sharedVaribleServiceRef!.employeesData);
+    localStorage.setItem("employees", JSON.stringify(this.sharedService!.employeesData));
+    this.sharedService!.updateEmployees(this.sharedService!.employeesData);
     this.closeEmployeeForm();
     this.closeDetails();
   }

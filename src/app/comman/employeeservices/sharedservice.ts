@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Employee } from '../variables';
+import { Employee } from '../../maincontent/rightmaincontent/variables';
 import { Subject } from 'rxjs';
 
 @Injectable()

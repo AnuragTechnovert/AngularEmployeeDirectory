@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Employee } from '../variables';
 import { getElement } from '../helper';
-import { SharedService } from '../employeeservices/sharedservice';
-import { EmployeeService } from '../employeeservices/employeeservice';
+import { SharedService } from '../../../comman/employeeservices/sharedservice';
+import { EmployeeService } from '../../../comman/employeeservices/employeeservice';
 
 @Component({
   selector: 'app-employeedetails',
@@ -13,10 +13,10 @@ export class EmployeedetailsComponent {
   @Input()
   selectedEmployee!: Employee | undefined;
   employeeService: EmployeeService | undefined;
-  sharedservice: SharedService | undefined;
+  sharedService: SharedService | undefined;
 
-  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
-    this.sharedservice = sharedservice;
+  constructor(sharedService: SharedService, employeeService: EmployeeService) {
+    this.sharedService = sharedService;
     this.employeeService = employeeService;
   }
 
@@ -26,16 +26,16 @@ export class EmployeedetailsComponent {
   }
 
   openEditEmployeeForm(selectedEmployee: Employee) {
-    this.sharedservice!.isEditMode = true;
-    this.sharedservice!.selectedEmployeeId = selectedEmployee.id;
+    this.sharedService!.isEditMode = true;
+    this.sharedService!.selectedEmployeeId = selectedEmployee.id;
     this.populateEditEmpDetailsForm(selectedEmployee);
   }
 
   deleteEmployee(employeeId: any) {
-    let index = this.sharedservice!.employeesData!.findIndex(emp => { return emp.id === employeeId; })
+    let index = this.sharedService!.employeesData!.findIndex(emp => { return emp.id === employeeId; })
     let confirmed = confirm("Are you sure you want to delete This employee?");
     if (confirmed) {
-      this.sharedservice!.employeesData!.splice(index, 1);
+      this.sharedService!.employeesData!.splice(index, 1);
       this.employeeService!.saveDetails();
       alert("!!Employee removed!!");
     }

@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { findById } from '../helper';
 import { Employee } from '../variables';
 import { NgForm } from '@angular/forms';
-import { SharedService } from '../employeeservices/sharedservice';
-import { EmployeeService } from '../employeeservices/employeeservice';
+import { SharedService } from '../../../comman/employeeservices/sharedservice';
+import { EmployeeService } from '../../../comman/employeeservices/employeeservice';
 
 @Component({
   selector: 'app-employeeform',
@@ -15,17 +15,17 @@ export class EmployeeformComponent implements AfterViewInit {
 
   lastEmpid: number = 0;
   employeeService: EmployeeService | undefined;
-  sharedservice: SharedService | undefined;
+  sharedService: SharedService | undefined;
 
   @ViewChild('employeeForm') employeeForm!: NgForm;
 
-  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
+  constructor(sharedService: SharedService, employeeService: EmployeeService) {
 
     this.employeeService = employeeService;
-    this.sharedservice = sharedservice;
+    this.sharedService = sharedService;
 
-    if (this.sharedservice.employeesData)
-      this.lastEmpid = this.sharedservice!.employeesData[this.sharedservice!.employeesData.length - 1].id;
+    if (this.sharedService.employeesData)
+      this.lastEmpid = this.sharedService!.employeesData[this.sharedService!.employeesData.length - 1].id;
   }
 
   ngAfterViewInit() {
@@ -57,7 +57,7 @@ export class EmployeeformComponent implements AfterViewInit {
         phoneNumber: phoneNumber,
         skypeId: skypeId
       }
-      this.sharedservice!.employeesData.push(emp);
+      this.sharedService!.employeesData.push(emp);
       this.employeeService.saveDetails();
       alert("Employee data added successfully");
     }
@@ -66,7 +66,7 @@ export class EmployeeformComponent implements AfterViewInit {
   updateEmployeeDetails(employeeForm: NgForm): void {
 
     if (this.employeeService!.isFormValid(employeeForm)) {
-      let employeeToUpdate = findById(this.sharedservice?.selectedEmployeeId, this.sharedservice?.employeesData)
+      let employeeToUpdate = findById(this.sharedService?.selectedEmployeeId, this.sharedService?.employeesData)
       employeeToUpdate!.firstName = employeeForm.value.firstName;
       employeeToUpdate!.lastName = employeeForm.value.lastName;
       employeeToUpdate!.preferredName = employeeForm.value.preferredName;
@@ -82,7 +82,7 @@ export class EmployeeformComponent implements AfterViewInit {
   }
 
   closeEmployeeForm() {
-    this.sharedservice!.isEditMode = false;
+    this.sharedService!.isEditMode = false;
     this.employeeService?.closeEmployeeForm();
   }
 }

@@ -35,10 +35,10 @@
             <p>Please use the advanced filter options to refine your results.</p>
         </div>
         <div class="employees-cards-container" id="employeesCardsContainer">
-            <app-employeecardcomponent *ngFor="let employee of  sharedservice.filteredData" [employee]="employee"
+            <app-employeecardcomponent *ngFor="let employee of  sharedService.filteredData" [employee]="employee"
                 (cardClick)="openDetails($event)" > <!-- Employee Cards will append here -->
             </app-employeecardcomponent>
-            <h2 *ngIf="!sharedservice.filteredData">No Employee Found...</h2 >
+            <h2 *ngIf="!sharedService.filteredData">No Employee Found...</h2 >
         </div>
         <div id="empDetailContainer" class="emp-details-popup"> <!-- Employee Details will append here -->
             <app-employeedetails [selectedEmployee]="selectedEmployee"></app-employeedetails>

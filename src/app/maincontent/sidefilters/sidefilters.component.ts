@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
 import { Employee } from '../rightmaincontent/variables';
-import { SharedService } from '../rightmaincontent/employeeservices/sharedservice';
-import { EmployeeService } from '../rightmaincontent/employeeservices/employeeservice';
+import { SharedService } from '../../comman/employeeservices/sharedservice';
+import { EmployeeService } from '../../comman/employeeservices/employeeservice';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,15 +11,15 @@ import { Subscription } from 'rxjs';
 })
 export class SidefiltersComponent implements OnInit {
   employeeService: EmployeeService | undefined;
-  sharedservice: SharedService | undefined;
+  sharedService: SharedService | undefined;
   officeList: any;
   departmentList: any;
   jobtitleList: any;
   filters: any;
   filtersGroups: any[] | undefined
 
-  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
-    this.sharedservice = sharedservice;
+  constructor(sharedService: SharedService, employeeService: EmployeeService) {
+    this.sharedService = sharedService;
     this.employeeService = employeeService;
   }
 
@@ -30,11 +30,11 @@ export class SidefiltersComponent implements OnInit {
       jobtitles: {},
     }
      
-    this.sharedservice?.employeesDataSubject.subscribe((employees: Employee[]) => {
+    this.sharedService?.employeesDataSubject.subscribe((employees: Employee[]) => {
       this.updateFilters(employees);
     });
 
-    this.updateFilters(this.sharedservice!.employeesData);
+    this.updateFilters(this.sharedService!.employeesData);
   }
 
   updateFilters(employees: Employee[]) {
@@ -79,18 +79,18 @@ export class SidefiltersComponent implements OnInit {
     let filteredData: Employee[] | undefined;
     switch (filterGroup) {
       case "department":
-        filteredData = this.sharedservice!.employeesData.filter(emp => emp.department === filterType);
+        filteredData = this.sharedService!.employeesData.filter(emp => emp.department === filterType);
         break;
       case "office":
-        filteredData = this.sharedservice!.employeesData.filter(emp => emp.office === filterType);
+        filteredData = this.sharedService!.employeesData.filter(emp => emp.office === filterType);
         break;
       case "jobTitle":
-        filteredData = this.sharedservice!.employeesData.filter(emp => emp.jobTitle === filterType);
+        filteredData = this.sharedService!.employeesData.filter(emp => emp.jobTitle === filterType);
         break;
       default:
-        filteredData = this.sharedservice!.employeesData;
+        filteredData = this.sharedService!.employeesData;
     }
 
-    this.sharedservice!.filteredData = filteredData;
+    this.sharedService!.filteredData = filteredData;
   }
 }
