@@ -1,6 +1,6 @@
 <div class="form-popup" id="userFormContainer">
     <h2 class="emp-form-title">Add Employee</h2>
-    <form #employeeForm ="ngForm" class="emp-form" id="myForm" (ngSubmit)="sharedVaribleServiceRef!.isEditMode ? updateEmployeeDetails(employeeForm) : addEmployeeDetails(employeeForm)" >
+    <form #employeeForm ="ngForm" class="emp-form" id="myForm" (ngSubmit)="sharedservice!.isEditMode ? updateEmployeeDetails(employeeForm) : addEmployeeDetails(employeeForm)" >
         <div>
             <label for="firstName">First Name <span class="required"></span></label>
             <input type="text" id="firstName" name="firstName" required ngModel>
