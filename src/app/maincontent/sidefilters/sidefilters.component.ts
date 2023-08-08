@@ -1,8 +1,7 @@
 import { Component, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
 import { Employee } from '../rightmaincontent/variables';
-import { getElement } from '../rightmaincontent/helper';
-import { SharedVaribleService } from '../rightmaincontent/employeeservices/variblesservice';
-import { EmployeeFormService } from '../rightmaincontent/employeeservices/employeeformservice';
+import { SharedService } from '../rightmaincontent/employeeservices/sharedservice';
+import { EmployeeService } from '../rightmaincontent/employeeservices/employeeservice';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,16 +10,17 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./sidefilters.component.css'],
 })
 export class SidefiltersComponent implements OnInit {
-  employeeFormServiceRef: EmployeeFormService | undefined;
-  sharedVaribleServiceRef: SharedVaribleService | undefined;
+  employeeService: EmployeeService | undefined;
+  sharedservice: SharedService | undefined;
   officeList: any;
   departmentList: any;
   jobtitleList: any;
   filters: any;
+  filtersGroups: any[] | undefined
 
-  constructor(sharedVaribleServiceRef: SharedVaribleService, employeeFormServiceRef: EmployeeFormService) {
-    this.sharedVaribleServiceRef = sharedVaribleServiceRef;
-    this.employeeFormServiceRef = employeeFormServiceRef;
+  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
+    this.sharedservice = sharedservice;
+    this.employeeService = employeeService;
   }
 
   ngOnInit() {
@@ -29,11 +29,12 @@ export class SidefiltersComponent implements OnInit {
       offices: {},
       jobtitles: {},
     }
-    this.sharedVaribleServiceRef?.employeesDataSubject.subscribe((employees: Employee[]) => {
+     
+    this.sharedservice?.employeesDataSubject.subscribe((employees: Employee[]) => {
       this.updateFilters(employees);
     });
 
-    this.updateFilters(this.sharedVaribleServiceRef!.employeesData);
+    this.updateFilters(this.sharedservice!.employeesData);
   }
 
   updateFilters(employees: Employee[]) {
@@ -50,24 +51,46 @@ export class SidefiltersComponent implements OnInit {
     this.departmentList = Object.keys(this.filters.departments);
     this.officeList = Object.keys(this.filters.offices);
     this.jobtitleList = Object.keys(this.filters.jobtitles);
+
+    this.filtersGroups = [
+      {
+        title: 'Departments',
+        filterType: 'department',
+        items: this.getFilterItems(this.departmentList, 'departments')
+      },
+      {
+        title: 'Offices',
+        filterType: 'office',
+        items: this.getFilterItems(this.officeList, 'offices')
+      },
+      {
+        title: 'Job Titles',
+        filterType: 'jobTitle',
+        items: this.getFilterItems(this.jobtitleList, 'jobtitles')
+      }
+    ];
+  }
+
+  private getFilterItems(list: any[], filterType: string): any[] {
+    return list.map(item => ({ key: item, value: this.filters[filterType][item] }));
   }
 
   loadCardsByFilter = (filterGroup: any, filterType: any): void => {
     let filteredData: Employee[] | undefined;
     switch (filterGroup) {
       case "department":
-        filteredData = this.sharedVaribleServiceRef!.employeesData.filter(emp => emp.department === filterType);
+        filteredData = this.sharedservice!.employeesData.filter(emp => emp.department === filterType);
         break;
       case "office":
-        filteredData = this.sharedVaribleServiceRef!.employeesData.filter(emp => emp.office === filterType);
+        filteredData = this.sharedservice!.employeesData.filter(emp => emp.office === filterType);
         break;
       case "jobTitle":
-        filteredData = this.sharedVaribleServiceRef!.employeesData.filter(emp => emp.jobTitle === filterType);
+        filteredData = this.sharedservice!.employeesData.filter(emp => emp.jobTitle === filterType);
         break;
       default:
-        filteredData = this.sharedVaribleServiceRef!.employeesData;
+        filteredData = this.sharedservice!.employeesData;
     }
 
-    this.sharedVaribleServiceRef!.filteredData = filteredData;
+    this.sharedservice!.filteredData = filteredData;
   }
 }

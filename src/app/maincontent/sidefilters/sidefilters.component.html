@@ -1,29 +1,11 @@
 <div class="side-filters-container">
-    <div class="filters-group">
-        <h4>Departments</h4>
-        <ul class="filters-list" id="departmentsFilter">
-            <li *ngFor="let department of departmentList">
-                <span (click)="loadCardsByFilter('department', department)">{{ department }} ({{
-                    filters.departments[department]
-                    }})</span>
-            </li>
-        </ul>
-    </div>
-    <div class="filters-group">
-        <h4>Offices</h4>
-        <ul class="filters-list" id="officesFilter">
-            <li *ngFor="let office of officeList">
-                <span (click)="loadCardsByFilter('office', office)">{{ office }} ({{ filters.offices[office]
-                    }})</span>
-            </li>
-        </ul>
-    </div>
-    <div class="filters-group">
-        <h4>Job Titles</h4>
-        <ul class="filters-list" id="jobTitlesFilter">
-            <li *ngFor="let jobTitle of jobtitleList">
-                <span (click)="loadCardsByFilter('jobTitle', jobTitle)">{{ jobTitle }} ({{ filters.jobtitles[jobTitle]
-                    }})</span>
+    <div class="filters-group" *ngFor="let filterGroup of filtersGroups">
+        <h4>{{ filterGroup.title }}</h4>
+        <ul class="filters-list">
+            <li *ngFor="let filterItem of filterGroup.items">
+                <span (click)="loadCardsByFilter(filterGroup.filterType, filterItem.key)">
+                    {{ filterItem.key }} ({{ filterItem.value }})
+                </span>
             </li>
         </ul>
     </div>

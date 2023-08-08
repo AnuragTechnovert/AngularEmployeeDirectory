@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Employee } from '../variables';
 import { getElement } from '../helper';
-import { SharedVaribleService } from '../employeeservices/variblesservice';
-import { EmployeeFormService } from '../employeeservices/employeeformservice';
+import { SharedService } from '../employeeservices/sharedservice';
+import { EmployeeService } from '../employeeservices/employeeservice';
 
 @Component({
   selector: 'app-employeedetails',
@@ -12,12 +12,12 @@ import { EmployeeFormService } from '../employeeservices/employeeformservice';
 export class EmployeedetailsComponent {
   @Input()
   selectedEmployee!: Employee | undefined;
-  employeeFormServiceRef: EmployeeFormService | undefined;
-  sharedVaribleServiceRef: SharedVaribleService | undefined;
+  employeeService: EmployeeService | undefined;
+  sharedservice: SharedService | undefined;
 
-  constructor(sharedVaribleServiceRef: SharedVaribleService, employeeFormServiceRef: EmployeeFormService) {
-    this.sharedVaribleServiceRef = sharedVaribleServiceRef;
-    this.employeeFormServiceRef = employeeFormServiceRef;
+  constructor(sharedservice: SharedService, employeeService: EmployeeService) {
+    this.sharedservice = sharedservice;
+    this.employeeService = employeeService;
   }
 
   closeDetails(): void { 
@@ -26,17 +26,17 @@ export class EmployeedetailsComponent {
   }
 
   openEditEmployeeForm(selectedEmployee: Employee) {
-    this.sharedVaribleServiceRef!.isEditMode = true;
-    this.sharedVaribleServiceRef!.selectedEmployeeId = selectedEmployee.id;
+    this.sharedservice!.isEditMode = true;
+    this.sharedservice!.selectedEmployeeId = selectedEmployee.id;
     this.populateEditEmpDetailsForm(selectedEmployee);
   }
 
   deleteEmployee(employeeId: any) {
-    let index = this.sharedVaribleServiceRef!.employeesData!.findIndex(emp => { return emp.id === employeeId; })
+    let index = this.sharedservice!.employeesData!.findIndex(emp => { return emp.id === employeeId; })
     let confirmed = confirm("Are you sure you want to delete This employee?");
     if (confirmed) {
-      this.sharedVaribleServiceRef!.employeesData!.splice(index, 1);
-      this.employeeFormServiceRef!.saveDetails();
+      this.sharedservice!.employeesData!.splice(index, 1);
+      this.employeeService!.saveDetails();
       alert("!!Employee removed!!");
     }
   }
@@ -46,9 +46,9 @@ export class EmployeedetailsComponent {
     getElement("buttonSubmit").style.display = "none";
     getElement("buttonSubmit").disabled = true;
     getElement("buttonUpdate").style.display = "inline-block";
-    this.employeeFormServiceRef!.openEmployeeForm();
+    this.employeeService!.openEmployeeForm();
     document.querySelector(".emp-form-title")!.textContent = "Edit Employee";
-    this.employeeFormServiceRef!.employeeForm.setValue({
+    this.employeeService!.employeeForm.setValue({
       firstName: selectedEmployee.firstName,
       lastName: selectedEmployee.lastName,
       preferredName: selectedEmployee.preferredName,

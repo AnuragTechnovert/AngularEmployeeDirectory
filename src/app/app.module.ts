@@ -9,10 +9,10 @@ import { SidefiltersComponent } from './maincontent/sidefilters/sidefilters.comp
 import { RightmaincontentComponent } from './maincontent/rightmaincontent/rightmaincontent.component';
 import { EmployeeformComponent } from './maincontent/rightmaincontent/employeeform/employeeform.component';
 import { FormsModule } from '@angular/forms';
-import { SharedVaribleService } from './maincontent/rightmaincontent/employeeservices/variblesservice';
+import { SharedService } from './maincontent/rightmaincontent/employeeservices/sharedservice';
 import { EmployeecardcomponentComponent } from './maincontent/rightmaincontent/employeecardcomponent/employeecardcomponent.component';
 import { EmployeedetailsComponent } from './maincontent/rightmaincontent/employeedetails/employeedetails.component';
-import { EmployeeFormService } from './maincontent/rightmaincontent/employeeservices/employeeformservice';
+import { EmployeeService } from './maincontent/rightmaincontent/employeeservices/employeeservice';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { EmployeeFormService } from './maincontent/rightmaincontent/employeeserv
     AppRoutingModule,
     FormsModule
   ],
-  providers: [SharedVaribleService,EmployeeFormService],
+  providers: [SharedService,EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

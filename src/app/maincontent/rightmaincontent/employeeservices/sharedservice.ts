@@ -3,7 +3,7 @@ import { Employee } from '../variables';
 import { Subject } from 'rxjs';
 
 @Injectable()
-export class SharedVaribleService {
+export class SharedService {
 
     employeesData: Employee[] = [];
     filteredData: Employee[] | undefined;

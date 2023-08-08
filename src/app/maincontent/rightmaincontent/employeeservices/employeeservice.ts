@@ -2,16 +2,16 @@ import { Injectable, ViewChild } from '@angular/core';
 import { findById, getElement, getElementValue, validateEmail, validatePhoneNumber } from '../helper';
 import { NgForm } from '@angular/forms';
 import { Employee } from '../variables';
-import { SharedVaribleService } from './variblesservice';
+import { SharedService } from './sharedservice';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeFormService {
+export class EmployeeService {
   employeeForm!: any;   //  data get filled in this variable in employeeform component
-  sharedVaribleServiceRef : SharedVaribleService | undefined;
+  sharedVaribleServiceRef : SharedService | undefined;
 
-  constructor(sharedVaribleServiceRef:SharedVaribleService) {
+  constructor(sharedVaribleServiceRef:SharedService) {
     this.sharedVaribleServiceRef = sharedVaribleServiceRef;
    }
 
