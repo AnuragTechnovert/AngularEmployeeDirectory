@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
 import { Employee } from '../rightmaincontent/variables';
-import { SharedService } from '../../comman/employeeservices/sharedservice';
-import { EmployeeService } from '../../comman/employeeservices/employeeservice';
+import { SharedService } from '../../common/employeeservices/sharedservice';
+import { EmployeeService } from '../../common/employeeservices/employeeservice';
 import { Subscription } from 'rxjs';
 
 @Component({

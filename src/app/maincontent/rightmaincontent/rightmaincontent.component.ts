@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Employee, alphabets } from './variables';
 import { getElement } from './helper';
-import { SharedService } from '../../comman/employeeservices/sharedservice';
-import { EmployeeService } from '../../comman/employeeservices/employeeservice';
+import { SharedService } from '../../common/employeeservices/sharedservice';
+import { EmployeeService } from '../../common/employeeservices/employeeservice';
 
 @Component({
   selector: 'app-rightmaincontent',

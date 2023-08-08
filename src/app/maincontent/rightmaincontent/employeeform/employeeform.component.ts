@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { findById } from '../helper';
 import { Employee } from '../variables';
 import { NgForm } from '@angular/forms';
-import { SharedService } from '../../../comman/employeeservices/sharedservice';
-import { EmployeeService } from '../../../comman/employeeservices/employeeservice';
+import { SharedService } from '../../../common/employeeservices/sharedservice';
+import { EmployeeService } from '../../../common/employeeservices/employeeservice';
 
 @Component({
   selector: 'app-employeeform',
