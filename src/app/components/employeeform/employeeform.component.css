@@ -28,7 +28,7 @@
 
 .btn-row {
     display: flex;
-    justify-content:flex-end;
+    justify-content: flex-end;
     margin-right: 57px;
     position: relative;
     left: 186%;
@@ -47,7 +47,7 @@
     box-sizing: content-box;
 }
 
-.submit:hover{
+.submit:hover {
     background-color: rgb(105, 155, 31);
 }
 
@@ -63,8 +63,9 @@
     margin: 20px 10px;
     box-sizing: content-box;
 }
-.close:hover{
-   background-color: rgba(191, 188, 188, 0.455);
+
+.close:hover {
+    background-color: rgba(191, 188, 188, 0.455);
 }
 
 .emp-form {
@@ -77,7 +78,7 @@
     margin-top: -4%
 }
 
-.required:after{
+.required:after {
     content: "*";
     color: red;
 }
@@ -92,12 +93,18 @@
     color: #969595;
 }
 
-#buttonUpdate {
-    display: none;
+.btn-edit,
+.btn-delete {
+    border: none;
+    position: relative;
+    left: 90%;
+    font-size: large;
+    background-color: white;
+    margin-top: 20px;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
-#jobTitle,
-#department,
-#office {
-    width: 67%;
+#buttonUpdate {
+    display: none;
 }

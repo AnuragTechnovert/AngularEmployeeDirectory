@@ -1,36 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './common/header/header.component';
-import { MaincontentComponent } from './maincontent/maincontent.component';
-import { SidefiltersComponent } from './maincontent/sidefilters/sidefilters.component';
-import { RightmaincontentComponent } from './maincontent/rightmaincontent/rightmaincontent.component';
-import { EmployeeformComponent } from './maincontent/rightmaincontent/employeeform/employeeform.component';
+import { HeaderComponent } from './components/common/header/header.component';
+import { SidefiltersComponent } from './components/sidefilters/sidefilters.component';
+import { RightmaincontentComponent } from './components/rightmaincontent/rightmaincontent.component';
+import { EmployeeformComponent } from './components/employeeform/employeeform.component';
 import { FormsModule } from '@angular/forms';
-import { SharedService } from './common/employeeservices/sharedservice';
-import { EmployeecardcomponentComponent } from './maincontent/rightmaincontent/employeecardcomponent/employeecardcomponent.component';
-import { EmployeedetailsComponent } from './maincontent/rightmaincontent/employeedetails/employeedetails.component';
-import { EmployeeService } from './common/employeeservices/employeeservice';
+import { SharedService } from './services/datasharedservice';
+import { EmployeecardcomponentComponent } from './components/employeecard/employeecardcomponent.component';
+import { EmployeeService } from './services/employee.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmdialogComponent } from './components/confirmdialog/confirmdialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    MaincontentComponent,
     SidefiltersComponent,
     RightmaincontentComponent,
     EmployeeformComponent,
     EmployeecardcomponentComponent,
-    EmployeedetailsComponent,
+    ConfirmdialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [SharedService,EmployeeService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

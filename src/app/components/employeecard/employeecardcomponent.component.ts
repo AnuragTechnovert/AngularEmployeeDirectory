@@ -1,5 +1,5 @@
 import { Component , EventEmitter, Input, Output} from '@angular/core';
-import { Employee } from '../variables';
+import { Employee } from 'src/app/modals/employee';
 
 @Component({
   selector: 'app-employeecardcomponent',

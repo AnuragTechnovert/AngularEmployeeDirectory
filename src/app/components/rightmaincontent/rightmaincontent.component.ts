@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { Employee, alphabets } from './variables';
-import { getElement } from './helper';
-import { SharedService } from '../../common/employeeservices/sharedservice';
-import { EmployeeService } from '../../common/employeeservices/employeeservice';
+import { Component, ViewChild } from '@angular/core';
+import { SharedService } from '../../services/datasharedservice';
+import { Employee } from 'src/app/modals/employee';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { EmployeeformComponent } from '../employeeform/employeeform.component';
+import { alphabets } from './varibles';
 
 @Component({
   selector: 'app-rightmaincontent',
@@ -12,12 +13,14 @@ import { EmployeeService } from '../../common/employeeservices/employeeservice';
 
 export class RightmaincontentComponent {
 
-  alphabets: string[] | undefined;
-  sharedService: any;
-  selectedEmployee: Employee | undefined;
-  employeeService: EmployeeService | undefined;
+  alphabets: string[];
+  sharedService: SharedService;
+  employeeService: EmployeeService;
   searchQuery: string = '';
   filterValue: string = 'preferredname';
+
+  @ViewChild(EmployeeformComponent)
+  employeeForm!: EmployeeformComponent;
 
   constructor(sharedService: SharedService, employeeService: EmployeeService) {
     this.sharedService = sharedService;
@@ -25,26 +28,20 @@ export class RightmaincontentComponent {
     this.alphabets = alphabets;
   }
 
-  openDetails = (selectedEmployee: any): void => {
-    getElement("overlay").style.display = "block";
-    this.selectedEmployee = selectedEmployee;
-    let empDetailContainer = getElement('empDetailContainer');
-    empDetailContainer.style.display = "block";
+  openAddEmployeeForm(): void {
+    this.employeeForm.openAddEmployeeForm();
   }
 
-  openEmployeeForm(): void {
-    document.querySelector(".emp-form-title")!.textContent = "Add Employee";
-    getElement("overlay").style.display = "block";
-    getElement('userFormContainer').style.display = "block";
+  openEmployeeDetails(selectedEmployee: Employee): void {
+    this.employeeForm.openEmployeeDetailsForm(selectedEmployee);
   }
 
-  searchByAlphabet (alphabet: string): void {
+  searchByAlphabet(alphabet: string): void {
     if (this.sharedService.filteredData)
       this.sharedService.filteredData = this.sharedService.employeesData!.filter((emp: any) => { return emp.firstName.toLowerCase().startsWith(alphabet.toLowerCase()) });
-    
   }
 
-  search (): void {
+  search(): void {
     let filterValue = this.filterValue;
     let searchValue = this.searchQuery.toLowerCase();
 

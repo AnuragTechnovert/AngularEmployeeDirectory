@@ -1,4 +1,5 @@
 <div class="main-content-container">
+    <app-employeeform></app-employeeform>
     <div class="main-content-search">
         <div class="alphabets">
             <button class="btn-alluser" (click)="cardsContainerReset()"><i class="fa-solid fa-user fa-lg"></i></button>
@@ -26,7 +27,7 @@
                     </select>
                 </div>
                 <div>
-                    <button class="btn-add-emp" (click)="openEmployeeForm()">Add Employee</button>
+                    <button class="btn-add-emp" (click)="openAddEmployeeForm()">Add Employee</button>
                 </div>
             </div>
         </form>
@@ -34,12 +35,11 @@
             <h4>Note:</h4>
             <p>Please use the advanced filter options to refine your results.</p>
         </div>
-        <div class="employees-cards-container" id="employeesCardsContainer">
-            <app-employeecardcomponent *ngFor="let employee of  sharedService.filteredData" [employee]="employee"
-                (cardClick)="openDetails($event)" > <!-- Employee Cards will append here -->
-            </app-employeecardcomponent>
-            <h2 *ngIf="!sharedService.filteredData">No Employee Found...</h2 >
-        </div>
-        <div id="empDetailContainer" class="emp-details-popup"> <!-- Employee Details will append here -->
-            <app-employeedetails [selectedEmployee]="selectedEmployee"></app-employeedetails>
-        </div>
+    </div>
+    <div class="employees-cards-container" id="employeesCardsContainer">
+        <app-employeecardcomponent *ngFor="let employee of  sharedService.filteredData" [employee]="employee"
+            (cardClick)="openEmployeeDetails($event)"> <!-- Employee Cards will append here -->
+        </app-employeecardcomponent>
+        <h2 *ngIf="!sharedService.filteredData">No Employee Found...</h2>
+    </div>
+</div>

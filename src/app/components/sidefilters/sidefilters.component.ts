@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
-import { Employee } from '../rightmaincontent/variables';
-import { SharedService } from '../../common/employeeservices/sharedservice';
-import { EmployeeService } from '../../common/employeeservices/employeeservice';
+import { SharedService } from '../../services/datasharedservice';
 import { Subscription } from 'rxjs';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { Employee } from 'src/app/modals/employee';
 
 @Component({
   selector: 'app-sidefilters',

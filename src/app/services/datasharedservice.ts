@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Employee } from '../../maincontent/rightmaincontent/variables';
 import { Subject } from 'rxjs';
+import { Employee } from '../modals/employee';
+import { EmployeeService } from './employee.service';
 
 @Injectable()
 export class SharedService {
 
     employeesData: Employee[] = [];
     filteredData: Employee[] | undefined;
-    alphabets: string[] | undefined;
-    isEditMode: any = false;
-    selectedEmployeeId : any ;
-    employeesDataSubject: Subject<Employee[]> = new Subject<Employee[]>();
-
+    employeesDataSubject: Subject<Employee[]>;
+    
     constructor() {
         const dataFromLocalStorage = localStorage.getItem('employees');
         if (dataFromLocalStorage) {
             this.employeesData = JSON.parse(dataFromLocalStorage);
         }
         this.filteredData = this.employeesData;
+        this.employeesDataSubject = new Subject<Employee[]>();
     }
 
-    updateEmployees(employees: Employee[]): void {
+    updateChanges(employees: Employee[]): void {
+        this.filteredData = employees;
         this.employeesDataSubject.next(employees);
       }
 

@@ -1,0 +1,11 @@
+.btn-cancel-dialog{
+    background-color: white;
+    border: 1px solid gray;
+    font-size: large;
+    margin-left: 15px;
+}
+.btn-confirm-dialog{
+    background-color:red;
+    border: 1px solid gray;
+    font-size: large;
+}
