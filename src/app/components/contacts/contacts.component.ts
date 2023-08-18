@@ -4,6 +4,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { EmployeeformComponent } from '../employeeform/employeeform.component';
 import { alphabets } from './varibles';
 import { FilterService } from 'src/app/services/filter.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-contacts',
@@ -20,7 +21,7 @@ export class ContactsComponent implements OnInit {
   @Input()
   employeeForm!: EmployeeformComponent;
 
-  constructor(private employeeService: EmployeeService, private filterService: FilterService) {
+  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService:SharedService) {
     this.alphabets = alphabets;
   }
 
@@ -28,6 +29,10 @@ export class ContactsComponent implements OnInit {
     this.filterService.filteredEmployeesSubject.subscribe(filteredEmployees => {
       this.loadEmployeesCards(filteredEmployees);
     })
+    this.sharedService.employeesDataSubject.subscribe(employees => {
+      this.loadEmployeesCards(employees);
+    })
+
 
     this.loadEmployeesCards(this.employeeService.getEmployees());
   }
