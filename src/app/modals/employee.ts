@@ -1,40 +1,25 @@
 export class Employee {
-    // id: number;
-    // firstName: string;
-    // lastName: string;
-    // preferredName: string;
-    // email: string;
-    // jobTitle: string;
-    // office: string;
-    // department: string;
-    // phoneNumber: string;
-    // skypeId: string;
-
-    // constructor(id: number, firstName: string, lastName: string, preferredName: string, email: string, jobtitle: string, office: string, department: string, phoneNumber: string, skypeId: string) {
-    //     this.id = id;
-    //     this.firstName = firstName;
-    //     this.lastName = lastName;
-    //     this.preferredName = preferredName;
-    //     this.email = email;
-    //     this.jobTitle = jobtitle;
-    //     this.office = office;
-    //     this.department = department;
-    //     this.phoneNumber = phoneNumber;
-    //     this.skypeId = skypeId;
-    // }
-
-    id!: number;
-    firstName!: string;
-    lastName!: string;
-    preferredName!: string;
-    email!: string;
-    jobTitle!: string;
-    office!: string;
-    department!: string;
-    phoneNumber!: string;
-    skypeId!: string;
+    id: number;
+    firstName: string;
+    lastName: string;
+    preferredName: string;
+    email: string;
+    jobTitle: string;
+    office: string;
+    department: string;
+    phoneNumber: string;
+    skypeId: string;
     
-    constructor(props?: Partial<Employee>) {
-        Object.assign(this, props);
+    constructor(args : any) {
+        this.id = !!args  && !!args.id ? args.id : '';
+        this.firstName = !!args  && !!args.firstName ? args.firstName : '';
+        this.lastName = !!args  && !!args.lastName ? args.lastName : '';
+        this.preferredName = !!args  && !!args.preferredName ? args.preferredName : '';
+        this.email = !!args  && !!args.email ? args.email : '';
+        this.jobTitle = !!args  && !!args.jobTitle ? args.jobTitle : '';
+        this.office = !!args  && !!args.office ? args.office : '';
+        this.department = !!args  && !!args.department ? args.department : '';
+        this.phoneNumber = !!args  && !!args.phoneNumber ? args.phoneNumber : '';
+        this.skypeId = !!args  && !!args.skypeId ? args.skypeId : '';
     }
 }

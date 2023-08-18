@@ -3,9 +3,11 @@
     border: 1px solid gray;
     font-size: large;
     margin-left: 15px;
+    cursor: pointer;
 }
 .btn-confirm-dialog{
     background-color:red;
-    border: 1px solid gray;
+    border: 1px solid #808080;
     font-size: large;
+    cursor: pointer;
 }

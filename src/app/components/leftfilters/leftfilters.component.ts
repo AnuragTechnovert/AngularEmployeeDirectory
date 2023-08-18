@@ -1,26 +1,23 @@
-import { Component, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
-import { SharedService } from '../../services/datasharedservice';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../services/shared.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Employee } from 'src/app/modals/employee';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
-  selector: 'app-sidefilters',
-  templateUrl: './sidefilters.component.html',
-  styleUrls: ['./sidefilters.component.css'],
+  selector: 'app-leftfilters',
+  templateUrl: './leftfilters.component.html',
+  styleUrls: ['./leftfilters.component.css'],
 })
 export class SidefiltersComponent implements OnInit {
-  employeeService: EmployeeService | undefined;
-  sharedService: SharedService | undefined;
+
   officeList: any;
   departmentList: any;
   jobtitleList: any;
   filters: any;
   filtersGroups: any[] | undefined
 
-  constructor(sharedService: SharedService, employeeService: EmployeeService) {
-    this.sharedService = sharedService;
-    this.employeeService = employeeService;
+  constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService) {
   }
 
   ngOnInit() {
@@ -29,15 +26,15 @@ export class SidefiltersComponent implements OnInit {
       offices: {},
       jobtitles: {},
     }
-     
+
     this.sharedService?.employeesDataSubject.subscribe((employees: Employee[]) => {
-      this.updateFilters(employees);
+      this.updateLeftFilters(employees);
     });
 
-    this.updateFilters(this.sharedService!.employeesData);
+    this.updateLeftFilters(this.employeeService.getEmployees());
   }
 
-  updateFilters(employees: Employee[]) {
+  updateLeftFilters(employees: Employee[]) {
     this.filters.departments = {};
     this.filters.offices = {};
     this.filters.jobtitles = {};
@@ -76,21 +73,6 @@ export class SidefiltersComponent implements OnInit {
   }
 
   loadCardsByFilter = (filterGroup: any, filterType: any): void => {
-    let filteredData: Employee[] | undefined;
-    switch (filterGroup) {
-      case "department":
-        filteredData = this.sharedService!.employeesData.filter(emp => emp.department === filterType);
-        break;
-      case "office":
-        filteredData = this.sharedService!.employeesData.filter(emp => emp.office === filterType);
-        break;
-      case "jobTitle":
-        filteredData = this.sharedService!.employeesData.filter(emp => emp.jobTitle === filterType);
-        break;
-      default:
-        filteredData = this.sharedService!.employeesData;
-    }
-
-    this.sharedService!.filteredData = filteredData;
+    this.filterService.leftFilter(filterGroup, filterType);
   }
 }

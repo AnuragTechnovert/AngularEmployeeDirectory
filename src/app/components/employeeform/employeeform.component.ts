@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { getElement, isFormValid } from '../helper/helper';
 import { NgForm } from '@angular/forms';
-import { SharedService } from '../../services/datasharedservice';
+import { SharedService } from '../../services/shared.service';
 import { Employee } from 'src/app/modals/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,20 +20,17 @@ export class EmployeeformComponent {
   sharedService: SharedService;
   isEditMode: boolean = false;
   isDetailsForm: boolean = false;
-  selectedEmployee!: Employee;
-  snackBar: MatSnackBar;
-
-
+  selectedEmployee!: Employee;  
+ 
   @ViewChild('employeeForm') employeeForm!: NgForm;
 
-  constructor(sharedService: SharedService, employeeService: EmployeeService, snackBar: MatSnackBar, private dialog: MatDialog) {
+  constructor(sharedService: SharedService, employeeService: EmployeeService,private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.employeeService = employeeService;
     this.sharedService = sharedService;
-    this.snackBar = snackBar;
   }
 
   addEmployee(employeeForm: NgForm) {
-    if (isFormValid(employeeForm,this.snackBar)) {
+    if (isFormValid(employeeForm, this.snackBar)) {
       this.employeeService.addEmployee(employeeForm);
       this.snackBar.open('Employee Added Successfully', 'Dismiss', {
         duration: 3000,
@@ -42,8 +39,8 @@ export class EmployeeformComponent {
     }
   }
 
-  updateEmployeeDetails(employeeForm: NgForm): void {
-    if (isFormValid(employeeForm,this.snackBar)) {
+  updateEmployee(employeeForm: NgForm): void {
+    if (isFormValid(employeeForm, this.snackBar)) {
       this.employeeService.updateEmployee(this.selectedEmployee.id, employeeForm);
       this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
         duration: 3000,
@@ -58,9 +55,8 @@ export class EmployeeformComponent {
 
   openAddEmployeeForm(): void {
     this.isEditMode = true;
-    document.querySelector(".emp-form-title")!.textContent = "Add Employee";
-    getElement('buttonSubmit').style.display = "block";
     getElement('employeeFormContainer').style.display = "block";
+
   }
 
   openEmployeeDetailsForm(selectedEmployee: Employee): void {
@@ -73,7 +69,6 @@ export class EmployeeformComponent {
     getElement("buttonSubmit").style.display = "none";
     getElement("buttonSubmit").disabled = true;
     getElement('employeeFormContainer').style.display = "block";
-    document.querySelector(".emp-form-title")!.textContent = "Edit Employee";
     this.employeeForm.setValue({
       firstName: selectedEmployee.firstName,
       lastName: selectedEmployee.lastName,
@@ -88,12 +83,12 @@ export class EmployeeformComponent {
   }
 
   closeEmployeeForm() {
+    this.employeeForm.reset();
     this.isDetailsForm = false;
     this.isEditMode = false;
     getElement("buttonSubmit").style.display = "inline-block";
     getElement("buttonSubmit").disabled = false;
     getElement("employeeFormContainer").style.display = "none";
-    this.employeeForm.reset();
   }
 
   deleteEmployee() {
@@ -107,5 +102,4 @@ export class EmployeeformComponent {
       }
     });
   }
-
 }

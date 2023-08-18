@@ -1,13 +1,14 @@
+<div class="overlay" *ngIf="isDetailsForm || isEditMode"></div>
 <div class="form-popup" id="employeeFormContainer">
     <button class="btn-edit" (click)="enableEditMode()" *ngIf="isDetailsForm">
-        <i class="fas fa-edit fa-xl" style="color: #969595;" ></i>
+        <i class="fas fa-edit fa-xl"></i>
     </button>
     <button class="btn-delete" *ngIf="isDetailsForm" (click)="deleteEmployee()">
-        <i class="fa-solid fa-trash-can fa-xl" style="color: #969595;"></i>
+        <i class="fa-solid fa-trash-can fa-xl"></i>
     </button>
-    <h2 class="emp-form-title">Add Employee</h2>
+    <h2 class="emp-form-title"  [innerText]= "isDetailsForm ? 'Edit Employee' : 'Add Employee'"></h2>
     <form #employeeForm="ngForm" class="emp-form" id="myForm"
-        (ngSubmit)="isDetailsForm ? updateEmployeeDetails(employeeForm):addEmployee(employeeForm)">
+        (ngSubmit)="isDetailsForm ? updateEmployee(employeeForm):addEmployee(employeeForm)">
         <div>
             <label for="firstName">First Name <span class="required"></span></label>
             <input type="text" id="firstName" name="firstName" required ngModel [disabled]="!isEditMode">

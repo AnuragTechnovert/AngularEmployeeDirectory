@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidefiltersComponent } from './sidefilters.component';
+import { SidefiltersComponent } from './leftfilters.component';
 
 describe('SidefiltersComponent', () => {
   let component: SidefiltersComponent;
