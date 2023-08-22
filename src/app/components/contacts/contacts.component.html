@@ -2,4 +2,5 @@
     <app-employeecardcomponent *ngFor="let employee of  employees" [employee]="employee"
         (cardClick)="openEmployeeDetails($event)">
     </app-employeecardcomponent>
+    <h2 *ngIf= "employees.length === 0">No employees found...</h2>
 </div>

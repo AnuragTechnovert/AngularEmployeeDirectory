@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../modals/employee';
 import { Subject } from 'rxjs';
 import { EmployeeService } from './employee.service';
-import { alphabet, departments, jobTitles, offices, search, filterType } from './variables';
+import { alphabet, departments, jobTitles, offices, search, filterType } from './filtervariables';
 
 @Injectable()
 export class FilterService {
@@ -52,149 +52,38 @@ export class FilterService {
   }
 
   updateFilteredEmployees() {
-
-
-    if (jobTitles.length > 0 && offices.length > 0 && departments.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.jobTitle === jobTitles[0] && employee.office === offices[0] && employee.department === departments[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (jobTitles.length > 0 && offices.length > 0 && departments.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.jobTitle === jobTitles[0] && employee.office === offices[0] && employee.department === departments[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (jobTitles.length > 0 && offices.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.jobTitle === jobTitles[0] && employee.office === offices[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (departments.length > 0 && offices.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.department === departments[0] && employee.office === offices[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (departments.length > 0 && jobTitles.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.department === departments[0] && employee.jobTitle === jobTitles[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (jobTitles.length > 0 && offices.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.jobTitle === jobTitles[0] && employee.office === offices[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (departments.length > 0 && offices.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.department === departments[0] && employee.office === offices[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (departments.length > 0 && jobTitles.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.department === departments[0] && employee.jobTitle === jobTitles[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (departments.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.department === departments[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (offices.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.office === offices[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (jobTitles.length > 0 && alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.jobTitle === jobTitles[0] && employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
-    if (alphabet.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase());
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
-    }
-
+    let filteredEmployees = this.employeeService.getEmployees();
+  
     if (departments.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.department === departments[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
+      filteredEmployees = filteredEmployees.filter(emp => emp.department === departments[0]);
     }
-
     if (offices.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.office === offices[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
+      filteredEmployees = filteredEmployees.filter(emp => emp.office === offices[0]);
     }
-
     if (jobTitles.length > 0) {
-      let filteredEmployees = this.employeeService.getEmployees().filter(employee => {
-        return employee.jobTitle === jobTitles[0];
-      });
-      this.filteredEmployeesSubject.next(filteredEmployees);
-      return;
+      filteredEmployees = filteredEmployees.filter(emp => emp.jobTitle === jobTitles[0]);
     }
-
+    if (alphabet.length > 0) {
+      filteredEmployees = filteredEmployees.filter(emp => emp.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase()));
+    }
     if (search.length > 0 && filterType.length > 0) {
-
-      let filteredEmployees;
-
       switch (filterType[0]) {
         case "preferredname":
-          filteredEmployees = this.employeeService.getEmployees().filter((emp: any) => emp.preferredName.toLowerCase().includes(search[0].toLowerCase()));
+          filteredEmployees = filteredEmployees.filter(emp => emp.preferredName.toLowerCase().includes(search[0].toLowerCase()));
           break;
         case "department":
-          filteredEmployees = this.employeeService.getEmployees().filter((emp: any) => emp.department.toLowerCase().includes(search[0].toLowerCase()));
+          filteredEmployees = filteredEmployees.filter(emp => emp.department.toLowerCase().includes(search[0].toLowerCase()));
           break;
         case "office":
-          filteredEmployees = this.employeeService.getEmployees().filter((emp: any) => emp.office.toLowerCase().includes(search[0].toLowerCase()));
+          filteredEmployees = filteredEmployees.filter(emp => emp.office.toLowerCase().includes(search[0].toLowerCase()));
           break;
         case "jobtitle":
-          filteredEmployees = this.employeeService.getEmployees().filter((emp: any) => emp.jobTitle.toLowerCase().includes(search[0].toLowerCase()));
+          filteredEmployees = filteredEmployees.filter(emp => emp.jobTitle.toLowerCase().includes(search[0].toLowerCase()));
           break;
       }
-      this.filteredEmployeesSubject.next(filteredEmployees!);
-      return;
     }
+  
+    this.filteredEmployeesSubject.next(filteredEmployees);
   }
 
   resetFilter() {

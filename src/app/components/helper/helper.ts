@@ -28,12 +28,12 @@ export let validatePhoneNumber = (phoneNumber: any): boolean => {
   return phoneRegex.test(phoneNumber);
 }
 
-export let isFormValid = (employeeform: NgForm, snackBar: MatSnackBar): boolean => {
-  let firstName = employeeform.value.firstName.trim();
-  let lastName = employeeform.value.lastName.trim();
-  let email = employeeform.value.email.trim();
-  let phoneNumber = employeeform.value.phoneNumber.trim();
-  let skypeId = employeeform.value.skypeId.trim();
+export let isFormValid = (employee: Employee, snackBar: MatSnackBar): boolean => {
+  let firstName = employee.firstName.trim();
+  let lastName = employee.lastName.trim();
+  let email = employee.email.trim();
+  let phoneNumber = employee.phoneNumber.trim();
+  let skypeId = employee.skypeId.trim();
 
   if (firstName === "") {
     snackBar.open('Please enter your first name.', 'Dismiss', {
