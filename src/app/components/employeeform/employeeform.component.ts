@@ -20,18 +20,20 @@ export class EmployeeformComponent {
   sharedService: SharedService;
   isEditMode: boolean = false;
   isDetailsForm: boolean = false;
-  selectedEmployee!: Employee;  
- 
+  selectedEmployee!: Employee;
+
   @ViewChild('employeeForm') employeeForm!: NgForm;
 
-  constructor(sharedService: SharedService, employeeService: EmployeeService,private snackBar: MatSnackBar, private dialog: MatDialog) {
+  constructor(sharedService: SharedService, employeeService: EmployeeService, private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.employeeService = employeeService;
     this.sharedService = sharedService;
   }
 
   addEmployee(employeeForm: NgForm) {
-    if (isFormValid(employeeForm, this.snackBar)) {
-      this.employeeService.addEmployee(employeeForm);
+    let employee = Object.assign({}, employeeForm.value);
+    if (isFormValid(employee, this.snackBar)) {
+      employee.id = new Date().getTime();
+      this.employeeService.addEmployee(employee);
       this.snackBar.open('Employee Added Successfully', 'Dismiss', {
         duration: 3000,
       });
@@ -40,8 +42,10 @@ export class EmployeeformComponent {
   }
 
   updateEmployee(employeeForm: NgForm): void {
-    if (isFormValid(employeeForm, this.snackBar)) {
-      this.employeeService.updateEmployee(this.selectedEmployee.id, employeeForm);
+    let employee = Object.assign({}, employeeForm.value);
+    if (isFormValid(employee, this.snackBar)) {
+      employee.id = this.selectedEmployee.id;
+      this.employeeService.updateEmployee(this.selectedEmployee.id, employee);
       this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
         duration: 3000,
       });
@@ -56,7 +60,6 @@ export class EmployeeformComponent {
   openAddEmployeeForm(): void {
     this.isEditMode = true;
     getElement('employeeFormContainer').style.display = "block";
-
   }
 
   openEmployeeDetailsForm(selectedEmployee: Employee): void {
@@ -66,29 +69,15 @@ export class EmployeeformComponent {
   }
 
   populateEditEmpDetailsForm(selectedEmployee: Employee) {
-    getElement("buttonSubmit").style.display = "none";
-    getElement("buttonSubmit").disabled = true;
     getElement('employeeFormContainer').style.display = "block";
-    this.employeeForm.setValue({
-      firstName: selectedEmployee.firstName,
-      lastName: selectedEmployee.lastName,
-      preferredName: selectedEmployee.preferredName,
-      email: selectedEmployee.email,
-      jobTitle: selectedEmployee.jobTitle,
-      office: selectedEmployee.office,
-      department: selectedEmployee.department,
-      phoneNumber: selectedEmployee.phoneNumber,
-      skypeId: selectedEmployee.skypeId,
-    });
+    this.employeeForm.control.patchValue(selectedEmployee);
   }
 
   closeEmployeeForm() {
+    getElement("employeeFormContainer").style.display = "none";
     this.employeeForm.reset();
     this.isDetailsForm = false;
     this.isEditMode = false;
-    getElement("buttonSubmit").style.display = "inline-block";
-    getElement("buttonSubmit").disabled = false;
-    getElement("employeeFormContainer").style.display = "none";
   }
 
   deleteEmployee() {

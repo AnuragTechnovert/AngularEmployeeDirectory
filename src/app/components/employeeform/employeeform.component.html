@@ -60,7 +60,7 @@
             <input type="text" id="skypeId" name="skypeId" ngModel [disabled]="!isEditMode">
         </div>
         <div class="btn-row">
-            <button type="submit" class="submit" id="buttonSubmit">Submit</button>
+            <button type="submit" class="submit" id="buttonSubmit" *ngIf="!isDetailsForm">Submit</button>
             <button class="submit" *ngIf="isEditMode && isDetailsForm">Save</button>
             <button type="button" class="close" (click)="closeEmployeeForm()">Cancel</button>
         </div>

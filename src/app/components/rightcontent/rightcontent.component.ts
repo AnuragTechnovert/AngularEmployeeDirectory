@@ -10,5 +10,5 @@ import { EmployeeformComponent } from '../employeeform/employeeform.component';
 export class RightcontentComponent {
 
   @ViewChild(EmployeeformComponent)
-  employeeForm!: EmployeeformComponent;
+  employeeFormComponent!: EmployeeformComponent;
 }

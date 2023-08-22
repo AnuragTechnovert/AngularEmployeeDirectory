@@ -19,7 +19,7 @@ export class TopfiltersComponent {
   filterValue: string = 'preferredname';
   filterService: FilterService;
   @Input()
-  employeeForm!: EmployeeformComponent;
+  employeeFormComponent!: EmployeeformComponent;
 
   constructor(sharedService: SharedService, employeeService: EmployeeService, filterService: FilterService) {
     this.sharedService = sharedService;
@@ -37,7 +37,7 @@ export class TopfiltersComponent {
   }
 
   openAddEmployeeForm(): void {
-    this.employeeForm.openAddEmployeeForm();
+    this.employeeFormComponent.openAddEmployeeForm();
   }
 
   cardsContainerReset = () => {

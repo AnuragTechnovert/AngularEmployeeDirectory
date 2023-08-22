@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Employee } from 'src/app/modals/employee';
 import { SharedService } from './shared.service';
 
@@ -8,20 +7,12 @@ export class EmployeeService {
 
   constructor(private sharedService: SharedService) { }
 
-  public addEmployee(employeeForm: NgForm): void {
-    let employeesData: Employee[] = JSON.parse(localStorage.getItem('employees')!);
-    employeesData.push(new Employee({
-      id: new Date().getTime(),
-      firstName: employeeForm.value.firstName,
-      lastName: employeeForm.value.lastName,
-      preferredName: employeeForm.value.preferredName,
-      email: employeeForm.value.email,
-      jobTitle: employeeForm.value.jobTitle,
-      office: employeeForm.value.office,
-      department: employeeForm.value.department,
-      phoneNumber: employeeForm.value.phoneNumber,
-      skypeId: employeeForm.value.skypeId,
-    }));
+  public addEmployee(employee: Employee): void {
+    let employeesData:Employee[] = [];
+    if(JSON.parse(localStorage.getItem('employees')!)){
+     employeesData = JSON.parse(localStorage.getItem('employees')!);
+    }
+    employeesData.push(employee);
     localStorage.setItem('employees', JSON.stringify(employeesData));
     this.sharedService.updateChanges(employeesData);
   }
@@ -44,19 +35,11 @@ export class EmployeeService {
     }
   }
 
-  public updateEmployee(employeeId: number, employeeForm: NgForm): void {
+  public updateEmployee(employeeId: number, employee: Employee): void {
     let employeesData: Employee[] = JSON.parse(localStorage.getItem('employees')!);
     if (employeesData) {
       let employeeToUpdate = employeesData.find((emp: Employee) => emp.id == employeeId)!;
-      employeeToUpdate.firstName = employeeForm.value.firstName;
-      employeeToUpdate.lastName = employeeForm.value.lastName;
-      employeeToUpdate.preferredName = employeeForm.value.preferredName;
-      employeeToUpdate.email = employeeForm.value.email;
-      employeeToUpdate.jobTitle = employeeForm.value.jobTitle;
-      employeeToUpdate.office = employeeForm.value.office;
-      employeeToUpdate.department = employeeForm.value.department;
-      employeeToUpdate.phoneNumber = employeeForm.value.phoneNumber;
-      employeeToUpdate.skypeId = employeeForm.value.skypeId;
+      Object.assign(employeeToUpdate,employee);
       localStorage.setItem('employees', JSON.stringify(employeesData));
       this.sharedService.updateChanges(employeesData);
     }

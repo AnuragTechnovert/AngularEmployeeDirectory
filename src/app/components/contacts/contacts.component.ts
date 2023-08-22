@@ -19,7 +19,7 @@ export class ContactsComponent implements OnInit {
   filterValue: string = 'preferredname';
   employees!: Employee[];
   @Input()
-  employeeForm!: EmployeeformComponent;
+  employeeFormComponent!: EmployeeformComponent;
 
   constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService:SharedService) {
     this.alphabets = alphabets;
@@ -42,11 +42,11 @@ export class ContactsComponent implements OnInit {
   }
 
   openAddEmployeeForm(): void {
-    this.employeeForm.openAddEmployeeForm();
+    this.employeeFormComponent.openAddEmployeeForm();
   }
 
   openEmployeeDetails(selectedEmployee: Employee): void {
-    this.employeeForm.openEmployeeDetailsForm(selectedEmployee);
+    this.employeeFormComponent.openEmployeeDetailsForm(selectedEmployee);
   }
 
   searchByAlphabet(alphabet: string): void {
