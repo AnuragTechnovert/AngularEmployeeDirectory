@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Employee } from 'src/app/modals/employee';
+import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { EmployeeformComponent } from '../employeeform/employeeform.component';
+import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { alphabets } from './varibles';
 import { FilterService } from 'src/app/services/filter.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -19,9 +19,9 @@ export class ContactsComponent implements OnInit {
   filterValue: string = 'preferredname';
   employees!: Employee[];
   @Input()
-  employeeFormComponent!: EmployeeformComponent;
+  employeeFormComponent!: EmployeeFormComponent;
 
-  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService:SharedService) {
+  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService) {
     this.alphabets = alphabets;
   }
 
@@ -33,7 +33,6 @@ export class ContactsComponent implements OnInit {
       this.loadEmployeesCards(employees);
     })
 
-
     this.loadEmployeesCards(this.employeeService.getEmployees());
   }
 
@@ -41,27 +40,8 @@ export class ContactsComponent implements OnInit {
     this.employees = employees;
   }
 
-  openAddEmployeeForm(): void {
-    this.employeeFormComponent.openAddEmployeeForm();
-  }
-
   openEmployeeDetails(selectedEmployee: Employee): void {
     this.employeeFormComponent.openEmployeeDetailsForm(selectedEmployee);
   }
-
-  searchByAlphabet(alphabet: string): void {
-    this.filterService.alphabetFilter(alphabet);
-  }
-
-  search(): void {
-    this.filterService.searchFilter(this.filterValue, this.searchQuery);
-  }
-
-  cardsContainerReset = () => {
-    this.searchQuery = "";
-    this.filterValue = 'preferredname';
-    this.filterService.resetFilter();
-  }
-
 }
 

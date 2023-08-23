@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { Employee } from 'src/app/modals/employee';
+import { Employee } from 'src/app/models/employee';
 import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
-  selector: 'app-leftfilters',
-  templateUrl: './leftfilters.component.html',
-  styleUrls: ['./leftfilters.component.css'],
+  selector: 'app-category-filters',
+  templateUrl: './category-filters.component.html',
+  styleUrls: ['./category-filters.component.css'],
 })
-export class SidefiltersComponent implements OnInit {
+export class CategoryFiltersComponent implements OnInit {
 
   officeList: any;
   departmentList: any;

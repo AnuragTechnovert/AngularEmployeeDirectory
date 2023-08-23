@@ -1,22 +1,5 @@
-import { NgForm } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Employee } from "src/app/modals/employee";
-
-export let getElement = (elementId: string) => {
-  return (<HTMLInputElement>document.getElementById(elementId));
-}
-export let getElementValue = (elementId: string) => {
-  return (<HTMLInputElement>document.getElementById(elementId)).value;
-}
-
-export let setElementValue = (elementId: string, value: any) => {
-  (<HTMLInputElement>document.getElementById(elementId)).value = value;
-}
-
-export let findById = (id: number, list: any): Employee => {
-  let emp = list.find((data: any) => data.id === id);
-  return emp!;
-}
+import { Employee } from "src/app/models/employee";
 
 export let validateEmail = (email: any): boolean => {
   let emailRegex = /^\S+@\S+\.\S+$/;
@@ -29,11 +12,11 @@ export let validatePhoneNumber = (phoneNumber: any): boolean => {
 }
 
 export let isFormValid = (employee: Employee, snackBar: MatSnackBar): boolean => {
-  let firstName = employee.firstName.trim();
-  let lastName = employee.lastName.trim();
-  let email = employee.email.trim();
-  let phoneNumber = employee.phoneNumber.trim();
-  let skypeId = employee.skypeId.trim();
+  let firstName = employee.firstName;
+  let lastName = employee.lastName;
+  let email = employee.email;
+  let phoneNumber = employee.phoneNumber;
+  let skypeId = employee.skypeId;
 
   if (firstName === "") {
     snackBar.open('Please enter your first name.', 'Dismiss', {

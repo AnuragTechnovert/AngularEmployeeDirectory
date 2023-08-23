@@ -33,7 +33,7 @@
     left: 186%;
 }
 
-.submit {
+.btn-submit {
     display: inline-block;
     background-color: rgb(123 188 26);
     color: #fff;
@@ -46,7 +46,7 @@
     box-sizing: content-box;
 }
 
-.submit:hover {
+.btn-submit:hover {
     background-color: rgb(105, 155, 31);
 }
 

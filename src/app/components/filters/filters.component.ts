@@ -2,15 +2,15 @@ import { Component, Input } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { alphabets } from '../contacts/varibles';
-import { EmployeeformComponent } from '../employeeform/employeeform.component';
+import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
-  selector: 'app-topfilters',
-  templateUrl: './topfilters.component.html',
-  styleUrls: ['./topfilters.component.css']
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.css']
 })
-export class TopfiltersComponent {
+export class FiltersComponent {
 
   alphabets: string[];
   sharedService: SharedService;
@@ -19,7 +19,7 @@ export class TopfiltersComponent {
   filterValue: string = 'preferredname';
   filterService: FilterService;
   @Input()
-  employeeFormComponent!: EmployeeformComponent;
+  employeeFormComponent!: EmployeeFormComponent;
 
   constructor(sharedService: SharedService, employeeService: EmployeeService, filterService: FilterService) {
     this.sharedService = sharedService;

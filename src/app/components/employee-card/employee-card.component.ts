@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Employee } from 'src/app/modals/employee';
+import { Employee } from 'src/app/models/employee';
 
 @Component({
-  selector: 'app-employeecardcomponent',
-  templateUrl: './employeecardcomponent.component.html',
-  styleUrls: ['./employeecardcomponent.component.css']
+  selector: 'app-employee-card',
+  templateUrl: './employee-card.component.html',
+  styleUrls: ['./employee-card.component.css']
 })
-export class EmployeecardcomponentComponent {
+export class EmployeeCardComponent {
   @Input()
   employee!: Employee;
   @Output() cardClick: EventEmitter<Employee> = new EventEmitter<Employee>();

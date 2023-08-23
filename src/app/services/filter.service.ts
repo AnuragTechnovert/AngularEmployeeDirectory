@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Employee } from '../modals/employee';
+import { Employee } from '../models/employee';
 import { Subject } from 'rxjs';
 import { EmployeeService } from './employee.service';
-import { alphabet, departments, jobTitles, offices, search, filterType } from './filtervariables';
+import { alphabet, departments, jobTitles, offices, search, filterType } from './filter-variables';
 
 @Injectable()
 export class FilterService {
@@ -39,7 +39,6 @@ export class FilterService {
       alphabet.pop();
     }
     alphabet.push(data);
-    console.log(alphabet[0]);
     this.updateFilteredEmployees();
   }
 

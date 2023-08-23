@@ -1,39 +1,45 @@
 import { Component, ViewChild } from '@angular/core';
-import { getElement, isFormValid } from '../helper/helper';
+import { isFormValid } from '../helper/helper';
 import { NgForm } from '@angular/forms';
-import { SharedService } from '../../services/shared.service';
-import { Employee } from 'src/app/modals/employee';
+import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmdialogComponent } from '../confirmdialog/confirmdialog.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-employeeform',
-  templateUrl: './employeeform.component.html',
-  styleUrls: ['./employeeform.component.css']
+  selector: 'app-employee-form',
+  templateUrl: './employee-form.component.html',
+  styleUrls: ['./employee-form.component.css']
 })
 
-export class EmployeeformComponent {
+export class EmployeeFormComponent {
 
-  employeeService: EmployeeService;
-  sharedService: SharedService;
   isEditMode: boolean = false;
   isDetailsForm: boolean = false;
   selectedEmployee!: Employee;
 
-  @ViewChild('employeeForm') employeeForm!: NgForm;
-
-  constructor(sharedService: SharedService, employeeService: EmployeeService, private snackBar: MatSnackBar, private dialog: MatDialog) {
-    this.employeeService = employeeService;
-    this.sharedService = sharedService;
+  employee: Employee = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    preferredName: '',
+    email: '',
+    jobTitle: '',
+    office: '',
+    department: '',
+    phoneNumber: '',
+    skypeId: '',
   }
 
-  addEmployee(employeeForm: NgForm) {
-    let employee = Object.assign({}, employeeForm.value);
-    if (isFormValid(employee, this.snackBar)) {
-      employee.id = new Date().getTime();
-      this.employeeService.addEmployee(employee);
+  @ViewChild('employeeForm') employeeForm!: NgForm;
+
+  constructor(private employeeService: EmployeeService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+
+  addEmployee() {
+    if (isFormValid(this.employee, this.snackBar)) {
+      this.employee.id = new Date().getTime();
+      this.employeeService.addEmployee(this.employee);
       this.snackBar.open('Employee Added Successfully', 'Dismiss', {
         duration: 3000,
       });
@@ -41,11 +47,10 @@ export class EmployeeformComponent {
     }
   }
 
-  updateEmployee(employeeForm: NgForm): void {
-    let employee = Object.assign({}, employeeForm.value);
-    if (isFormValid(employee, this.snackBar)) {
-      employee.id = this.selectedEmployee.id;
-      this.employeeService.updateEmployee(this.selectedEmployee.id, employee);
+  updateEmployee(): void {
+    if (isFormValid(this.employee, this.snackBar)) {
+      this.employee.id = this.selectedEmployee.id;
+      this.employeeService.updateEmployee(this.selectedEmployee.id, this.employee);
       this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
         duration: 3000,
       });
@@ -59,7 +64,6 @@ export class EmployeeformComponent {
 
   openAddEmployeeForm(): void {
     this.isEditMode = true;
-    getElement('employeeFormContainer').style.display = "block";
   }
 
   openEmployeeDetailsForm(selectedEmployee: Employee): void {
@@ -69,19 +73,29 @@ export class EmployeeformComponent {
   }
 
   populateEditEmpDetailsForm(selectedEmployee: Employee) {
-    getElement('employeeFormContainer').style.display = "block";
-    this.employeeForm.control.patchValue(selectedEmployee);
+    Object.assign(this.employee, selectedEmployee);
   }
 
   closeEmployeeForm() {
-    getElement("employeeFormContainer").style.display = "none";
-    this.employeeForm.reset();
+
+    this.employee = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      preferredName: '',
+      email: '',
+      jobTitle: '',
+      office: '',
+      department: '',
+      phoneNumber: '',
+      skypeId: '',
+    }
     this.isDetailsForm = false;
     this.isEditMode = false;
   }
 
   deleteEmployee() {
-    this.dialog.open(ConfirmdialogComponent, {
+    this.dialog.open(ConfirmDialogComponent, {
       data: { title: 'Confirm Delete', message: 'Are you sure you want to delete employee?' }
     }).afterClosed().subscribe(result => {
       if (result == true) {
