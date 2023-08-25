@@ -17,6 +17,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { FiltersComponent } from './components/filters/filters.component';
 import { FilterService } from './services/filter.service';
 import { ContentComponent } from './components/content/content.component';
+import {HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ContentComponent } from './components/content/content.component';
     FormsModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [SharedService, EmployeeService, FilterService],
   bootstrap: [AppComponent],

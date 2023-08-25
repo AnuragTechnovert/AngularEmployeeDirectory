@@ -5,6 +5,7 @@ import { EmployeeFormComponent } from '../employee-form/employee-form.component'
 import { alphabets } from './varibles';
 import { FilterService } from 'src/app/services/filter.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacts',
@@ -21,7 +22,7 @@ export class ContactsComponent implements OnInit {
   @Input()
   employeeFormComponent!: EmployeeFormComponent;
 
-  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService) {
+  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService, private router: Router) {
     this.alphabets = alphabets;
   }
 
@@ -41,7 +42,9 @@ export class ContactsComponent implements OnInit {
   }
 
   openEmployeeDetails(selectedEmployee: Employee): void {
-    this.employeeFormComponent.openEmployeeDetailsForm(selectedEmployee);
+
+    this.router.navigate(['/employee', selectedEmployee.id]);
+    this.employeeFormComponent.openEmployeeDetailsForm(selectedEmployee); 
   }
 }
 

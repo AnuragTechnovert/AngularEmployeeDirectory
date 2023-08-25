@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { SharedService } from 'src/app/services/shared.service';
 import { alphabets } from '../contacts/varibles';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { FilterService } from 'src/app/services/filter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filters',
@@ -13,19 +12,13 @@ import { FilterService } from 'src/app/services/filter.service';
 export class FiltersComponent {
 
   alphabets: string[];
-  sharedService: SharedService;
-  employeeService: EmployeeService;
   searchQuery: string = '';
   filterValue: string = 'preferredname';
-  filterService: FilterService;
   @Input()
   employeeFormComponent!: EmployeeFormComponent;
 
-  constructor(sharedService: SharedService, employeeService: EmployeeService, filterService: FilterService) {
-    this.sharedService = sharedService;
-    this.employeeService = employeeService;
+  constructor(private filterService: FilterService , private router:Router) {
     this.alphabets = alphabets;
-    this.filterService = filterService;
   }
 
   searchByAlphabet(alphabet: string): void {
@@ -33,10 +26,12 @@ export class FiltersComponent {
   }
 
   search(): void {
+
     this.filterService.searchFilter(this.filterValue, this.searchQuery);
   }
 
   openAddEmployeeForm(): void {
+// this.router.navigate(['/employee/add']);
     this.employeeFormComponent.openAddEmployeeForm();
   }
 

@@ -3,6 +3,7 @@ import { SharedService } from '../../services/shared.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Employee } from 'src/app/models/employee';
 import { FilterService } from 'src/app/services/filter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-filters',
@@ -17,7 +18,7 @@ export class CategoryFiltersComponent implements OnInit {
   filters: any;
   filtersGroups: any[] | undefined
 
-  constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService) {
+  constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService , private router : Router) {
   }
 
   ngOnInit() {
@@ -28,13 +29,13 @@ export class CategoryFiltersComponent implements OnInit {
     }
 
     this.sharedService?.employeesDataSubject.subscribe((employees: Employee[]) => {
-      this.updateLeftFilters(employees);
+      this.updateCategoryFilters(employees);
     });
 
-    this.updateLeftFilters(this.employeeService.getEmployees());
+    this.updateCategoryFilters(this.employeeService.getEmployees());
   }
 
-  updateLeftFilters(employees: Employee[]) {
+  updateCategoryFilters(employees: Employee[]) {
     this.filters.departments = {};
     this.filters.offices = {};
     this.filters.jobtitles = {};
@@ -72,7 +73,11 @@ export class CategoryFiltersComponent implements OnInit {
     return list.map(item => ({ key: item, value: this.filters[filterType][item] }));
   }
 
-  loadCardsByFilter = (filterGroup: any, filterType: any): void => {
+  loadCardsByFilter = (filterGroup: string, filterType: string): void => {
+    this.router.navigate(
+      ['/employees'], 
+      { queryParams: { [filterGroup]: filterType } }
+  ); 
     this.filterService.leftFilter(filterGroup, filterType);
   }
 }

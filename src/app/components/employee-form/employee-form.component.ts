@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { isFormValid } from '../helper/helper';
 import { NgForm } from '@angular/forms';
 import { Employee } from 'src/app/models/employee';
@@ -6,6 +6,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-form',
@@ -13,7 +14,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrls: ['./employee-form.component.css']
 })
 
-export class EmployeeFormComponent {
+export class EmployeeFormComponent implements OnInit {
 
   isEditMode: boolean = false;
   isDetailsForm: boolean = false;
@@ -32,10 +33,16 @@ export class EmployeeFormComponent {
     skypeId: '',
   }
 
-  @ViewChild('employeeForm') employeeForm!: NgForm;
+  constructor(
+    private employeeService: EmployeeService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
+    private router:Router
+  ) { }
 
-  constructor(private employeeService: EmployeeService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
-
+  ngOnInit() {    
+  }
   addEmployee() {
     if (isFormValid(this.employee, this.snackBar)) {
       this.employee.id = new Date().getTime();
@@ -69,10 +76,6 @@ export class EmployeeFormComponent {
   openEmployeeDetailsForm(selectedEmployee: Employee): void {
     this.isDetailsForm = true;
     this.selectedEmployee = selectedEmployee;
-    this.populateEditEmpDetailsForm(selectedEmployee);
-  }
-
-  populateEditEmpDetailsForm(selectedEmployee: Employee) {
     Object.assign(this.employee, selectedEmployee);
   }
 
@@ -92,6 +95,8 @@ export class EmployeeFormComponent {
     }
     this.isDetailsForm = false;
     this.isEditMode = false;
+    document.getElementById("employeeFormContainer")!.style.display = 'none';
+    this.router.navigate(['']);
   }
 
   deleteEmployee() {
