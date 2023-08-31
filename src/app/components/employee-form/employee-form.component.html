@@ -1,5 +1,5 @@
 <div class="overlay" *ngIf="isDetailsForm || isEditMode"></div>
-<div class="form-popup" id="employeeFormContainer" [style.display]="isEditMode||isDetailsForm ? 'block' : 'none'">
+<div class="form-popup" id="employeeFormContainer" [style.display]="isEditMode || isDetailsForm ? 'block' : 'none'">
     <button class="btn-edit" (click)="enableEditMode()" *ngIf="isDetailsForm">
         <i class="fas fa-edit fa-xl"></i>
     </button>

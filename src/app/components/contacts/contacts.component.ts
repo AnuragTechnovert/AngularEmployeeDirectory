@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { alphabets } from './varibles';
 import { FilterService } from 'src/app/services/filter.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -18,9 +17,10 @@ export class ContactsComponent implements OnInit {
   alphabets: string[];
   searchQuery: string = '';
   filterValue: string = 'preferredname';
+  isOpenForm:boolean = false;
+  selectedEmployee!:Employee;
+
   employees!: Employee[];
-  @Input()
-  employeeFormComponent!: EmployeeFormComponent;
 
   constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService, private router: Router) {
     this.alphabets = alphabets;
@@ -41,10 +41,10 @@ export class ContactsComponent implements OnInit {
     this.employees = employees;
   }
 
-  openEmployeeDetails(selectedEmployee: Employee): void {
-
-    this.router.navigate(['/employee', selectedEmployee.id]);
-    this.employeeFormComponent.openEmployeeDetailsForm(selectedEmployee); 
+  openEmployeeDetails(employee: Employee): void {
+    this.router.navigate(['/employee',employee.id])
+    this.selectedEmployee = employee; 
+    this.isOpenForm = !this.isOpenForm;
   }
 }
 

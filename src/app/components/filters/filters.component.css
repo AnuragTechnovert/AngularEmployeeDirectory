@@ -1,4 +1,3 @@
-
 .search-container {
     display: grid;
     grid-template-columns: 40% 25% auto;
@@ -20,7 +19,6 @@
     background-color: #00B1FC;
     color: white;
     cursor: pointer;
-
 }
 
 .search-label {

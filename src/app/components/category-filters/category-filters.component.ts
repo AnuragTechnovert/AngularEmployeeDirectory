@@ -12,20 +12,17 @@ import { Router } from '@angular/router';
 })
 export class CategoryFiltersComponent implements OnInit {
 
-  officeList: any;
-  departmentList: any;
-  jobtitleList: any;
   filters: any;
   filtersGroups: any[] | undefined
 
-  constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService , private router : Router) {
+  constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService, private router: Router) {
   }
 
   ngOnInit() {
     this.filters = {
       departments: {},
       offices: {},
-      jobtitles: {},
+      jobTitles: {},
     }
 
     this.sharedService?.employeesDataSubject.subscribe((employees: Employee[]) => {
@@ -38,46 +35,31 @@ export class CategoryFiltersComponent implements OnInit {
   updateCategoryFilters(employees: Employee[]) {
     this.filters.departments = {};
     this.filters.offices = {};
-    this.filters.jobtitles = {};
+    this.filters.jobTitles = {};
 
     employees.forEach(emp => {
       this.filters.departments[emp.department] = (this.filters.departments[emp.department] || 0) + 1;
       this.filters.offices[emp.office] = (this.filters.offices[emp.office] || 0) + 1;
-      this.filters.jobtitles[emp.jobTitle] = (this.filters.jobtitles[emp.jobTitle] || 0) + 1;
+      this.filters.jobTitles[emp.jobTitle] = (this.filters.jobTitles[emp.jobTitle] || 0) + 1;
     })
-
-    this.departmentList = Object.keys(this.filters.departments);
-    this.officeList = Object.keys(this.filters.offices);
-    this.jobtitleList = Object.keys(this.filters.jobtitles);
 
     this.filtersGroups = [
       {
         title: 'Departments',
-        filterType: 'department',
-        items: this.getFilterItems(this.departmentList, 'departments')
+        filterType: 'departments',
       },
       {
         title: 'Offices',
-        filterType: 'office',
-        items: this.getFilterItems(this.officeList, 'offices')
+        filterType: 'offices',
       },
       {
         title: 'Job Titles',
-        filterType: 'jobTitle',
-        items: this.getFilterItems(this.jobtitleList, 'jobtitles')
+        filterType: 'jobTitles',
       }
     ];
   }
 
-  private getFilterItems(list: any[], filterType: string): any[] {
-    return list.map(item => ({ key: item, value: this.filters[filterType][item] }));
-  }
-
-  loadCardsByFilter = (filterGroup: string, filterType: string): void => {
-    this.router.navigate(
-      ['/employees'], 
-      { queryParams: { [filterGroup]: filterType } }
-  ); 
-    this.filterService.leftFilter(filterGroup, filterType);
+  loadCardsByCategoryFilter = (filterGroup: any, filterType: any): void => {
+    this.filterService.categoryFilter(filterGroup, filterType);
   }
 }

@@ -1,10 +1,10 @@
-<div class="side-filters-container">
+<div class="category-filters-container">
     <div class="filters-group" *ngFor="let filterGroup of filtersGroups">
         <h4>{{ filterGroup.title }}</h4>
         <ul class="filters-list">
-            <li *ngFor="let filterItem of filterGroup.items">
-                <span (click)="loadCardsByFilter(filterGroup.filterType, filterItem.key)">
-                    {{ filterItem.key }} ({{ filterItem.value }})
+            <li *ngFor="let item of filters[filterGroup.filterType] | keyvalue">
+                <span (click)="loadCardsByCategoryFilter(filterGroup.filterType, item.key)">
+                    {{ item.key}}({{item.value}})
                 </span>
             </li>
         </ul>

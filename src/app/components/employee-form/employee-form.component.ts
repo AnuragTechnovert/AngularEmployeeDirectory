@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { isFormValid } from '../helper/helper';
 import { NgForm } from '@angular/forms';
 import { Employee } from 'src/app/models/employee';
@@ -16,8 +16,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class EmployeeFormComponent implements OnInit {
 
+  @Input()
   isEditMode: boolean = false;
+  @Input()
   isDetailsForm: boolean = false;
+  @Input()
   selectedEmployee!: Employee;
 
   employee: Employee = {
@@ -38,11 +41,15 @@ export class EmployeeFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) { }
 
-  ngOnInit() {    
+  ngOnInit() {
+    if (this.selectedEmployee) {
+      Object.assign(this.employee, this.selectedEmployee);
+    }
   }
+  
   addEmployee() {
     if (isFormValid(this.employee, this.snackBar)) {
       this.employee.id = new Date().getTime();
@@ -69,16 +76,6 @@ export class EmployeeFormComponent implements OnInit {
     this.isEditMode = true;
   }
 
-  openAddEmployeeForm(): void {
-    this.isEditMode = true;
-  }
-
-  openEmployeeDetailsForm(selectedEmployee: Employee): void {
-    this.isDetailsForm = true;
-    this.selectedEmployee = selectedEmployee;
-    Object.assign(this.employee, selectedEmployee);
-  }
-
   closeEmployeeForm() {
 
     this.employee = {
@@ -95,7 +92,6 @@ export class EmployeeFormComponent implements OnInit {
     }
     this.isDetailsForm = false;
     this.isEditMode = false;
-    document.getElementById("employeeFormContainer")!.style.display = 'none';
     this.router.navigate(['']);
   }
 

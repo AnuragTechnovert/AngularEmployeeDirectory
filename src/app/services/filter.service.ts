@@ -14,7 +14,7 @@ export class FilterService {
     this.filteredEmployeesSubject = new Subject<Employee[]>();
   }
 
-  leftFilter(filterGroup: any, filterType: any): void {
+  categoryFilter(filterGroup: any, filterType: any): void {
 
     switch (filterGroup) {
       case "department":

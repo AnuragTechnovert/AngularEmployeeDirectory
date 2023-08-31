@@ -7,7 +7,4 @@ import { EmployeeFormComponent } from '../employee-form/employee-form.component'
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent {
-
-  @ViewChild(EmployeeFormComponent)
-  employeeFormComponent!: EmployeeFormComponent;
 }

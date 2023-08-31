@@ -1,8 +1,8 @@
 .form-popup {
-    position: fixed;
-    margin-top: 6vh;
-    width: 56%;
-    left: 25%;
+    position: absolute;
+    margin-top: -10%;
+    width: 70%;
+    left: 18%;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 10px 20px 5px rgba(0, 0, 0, 0.5);
     transform: translateY(-5px);
@@ -19,10 +19,11 @@
 .emp-form input,
 .emp-form select {
     border: 1px solid rgba(172, 169, 169, 0.568);
-    padding: 8px;
+    padding: 9px;
     border-radius: 5px;
-    margin-bottom: 12px;
-    font-size: 18px;
+    margin-bottom: 16px;
+    font-size: 17px;
+    width: -webkit-fill-available;
 }
 
 .btn-row {
@@ -30,7 +31,7 @@
     justify-content: flex-end;
     margin-right: 57px;
     position: relative;
-    left: 186%;
+    left: 231%;
 }
 
 .btn-submit {
@@ -70,11 +71,11 @@
 .emp-form {
     display: grid;
     grid-template-columns: 33% 33% 33%;
-    margin: auto;
     line-height: 50px;
     padding: 60px;
-    width: 100%;
-    margin-top: -4%
+    width: 88%;
+    margin-top: -4%;
+    column-gap: 27px;
 }
 
 .required:after {
@@ -85,7 +86,7 @@
 .emp-form-title {
     font-size: 35px;
     color: #2f7795;
-    margin-left: 6%;
+    margin-left: 4.5%;
 }
 
 .card-icon {

@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { alphabets } from '../contacts/varibles';
-import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { FilterService } from 'src/app/services/filter.service';
 import { Router } from '@angular/router';
 
@@ -14,10 +13,9 @@ export class FiltersComponent {
   alphabets: string[];
   searchQuery: string = '';
   filterValue: string = 'preferredname';
-  @Input()
-  employeeFormComponent!: EmployeeFormComponent;
+  isOpenForm: boolean = false;
 
-  constructor(private filterService: FilterService , private router:Router) {
+  constructor(private filterService: FilterService, private router: Router) {
     this.alphabets = alphabets;
   }
 
@@ -26,13 +24,12 @@ export class FiltersComponent {
   }
 
   search(): void {
-
     this.filterService.searchFilter(this.filterValue, this.searchQuery);
   }
 
   openAddEmployeeForm(): void {
-// this.router.navigate(['/employee/add']);
-    this.employeeFormComponent.openAddEmployeeForm();
+    this.router.navigate(['/employee/add']);
+    this.isOpenForm = !this.isOpenForm;
   }
 
   cardsContainerReset = () => {
