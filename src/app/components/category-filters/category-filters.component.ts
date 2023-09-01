@@ -29,7 +29,9 @@ export class CategoryFiltersComponent implements OnInit {
       this.updateCategoryFilters(employees);
     });
 
-    this.updateCategoryFilters(this.employeeService.getEmployees());
+  this.employeeService.getEmployees().subscribe(resp=>{
+    this.updateCategoryFilters(resp);
+  })
   }
 
   updateCategoryFilters(employees: Employee[]) {

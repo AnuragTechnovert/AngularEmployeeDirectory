@@ -17,33 +17,30 @@ export class ContactsComponent implements OnInit {
   alphabets: string[];
   searchQuery: string = '';
   filterValue: string = 'preferredname';
-  isOpenForm:boolean = false;
-  selectedEmployee!:Employee;
+  isOpenForm: boolean = false;
+  selectedEmployee!: Employee;
 
   employees!: Employee[];
 
   constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService, private router: Router) {
     this.alphabets = alphabets;
+
   }
 
   ngOnInit(): void {
     this.filterService.filteredEmployeesSubject.subscribe(filteredEmployees => {
-      this.loadEmployeesCards(filteredEmployees);
+      this.employees = filteredEmployees;
     })
     this.sharedService.employeesDataSubject.subscribe(employees => {
-      this.loadEmployeesCards(employees);
+      this.employees = employees;
     })
-
-    this.loadEmployeesCards(this.employeeService.getEmployees());
-  }
-
-  loadEmployeesCards(employees: Employee[]) {
-    this.employees = employees;
+    this.employeeService.getEmployees().subscribe(resp => {
+      this.employees = resp;
+    })
   }
 
   openEmployeeDetails(employee: Employee): void {
-    this.router.navigate(['/employee',employee.id])
-    this.selectedEmployee = employee; 
+    this.selectedEmployee = employee;
     this.isOpenForm = !this.isOpenForm;
   }
 }

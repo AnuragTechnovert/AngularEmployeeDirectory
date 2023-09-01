@@ -1,48 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
 import { SharedService } from './shared.service';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class EmployeeService {
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService, private apiService: ApiService) { }
 
   public addEmployee(employee: Employee): void {
-    let employeesData: Employee[] = this.getEmployees();
-    employeesData.push(employee);
-    localStorage.setItem('employees', JSON.stringify(employeesData));
-    this.sharedService.updateChanges(employeesData);
+    this.apiService.add(employee, 'Employee/Add').subscribe(() => {
+      this.getEmployees().subscribe(resp => {
+        this.sharedService.updateChanges(resp);
+      })
+    });
   }
 
-  public getEmployees(): Employee[] {
-    let employeesData: Employee[] = JSON.parse(localStorage.getItem('employees')!)
-    if (employeesData)
-      return employeesData;
-    return [];
+  public getEmployees(): Observable<Employee[]> {
+    return this.apiService.get('Employee/Get');
   }
 
-  public getEmployeeById(employeeId: number): Employee {
-    return JSON.parse(localStorage.getItem('employees')!).find((emp: Employee) => emp.id == employeeId)!;
+  public getEmployeeById(employeeId: number): Observable<Employee> {
+    return this.apiService.getById(`Employee/GetById/${employeeId}`);
   }
 
   public deleteEmployee(employeeId: number): void {
-    let employeesData: Employee[] = this.getEmployees();
-    if (employeesData) {
-      let index = employeesData.findIndex((emp: Employee) => { return emp.id === employeeId; });
-      employeesData.splice(index, 1);
-      localStorage.setItem('employees', JSON.stringify(employeesData));
-      this.sharedService.updateChanges(employeesData);
-    }
+    this.apiService.delete(`Employee/Delete/${employeeId}`).subscribe(() => {
+      this.getEmployees().subscribe(resp => {
+        this.sharedService.updateChanges(resp);
+      })
+    });
   }
 
   public updateEmployee(employeeId: number, employee: Employee): void {
-    let employeesData: Employee[] = this.getEmployees();
-    if (employeesData) {
-      let employeeToUpdate = employeesData.find((emp: Employee) => emp.id == employeeId)!;
-      Object.assign(employeeToUpdate, employee);
-      localStorage.setItem('employees', JSON.stringify(employeesData));
-      this.sharedService.updateChanges(employeesData);
-    }
+    this.apiService.update(employee, `Employee/Update/${employeeId}`).subscribe(() => {
+      this.getEmployees().subscribe((resp) => {
+        this.sharedService.updateChanges(resp);
+      });
+    });
   }
 }
 

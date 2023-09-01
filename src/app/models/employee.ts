@@ -11,7 +11,7 @@ export class Employee {
     skypeId: string;
     
     constructor(args : any) {
-        this.id = !!args  && !!args.id ? args.id : '';
+        this.id = !!args  && !!args.id ? args.id : 0;
         this.firstName = !!args  && !!args.firstName ? args.firstName : '';
         this.lastName = !!args  && !!args.lastName ? args.lastName : '';
         this.preferredName = !!args  && !!args.preferredName ? args.preferredName : '';

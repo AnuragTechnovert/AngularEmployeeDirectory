@@ -49,10 +49,9 @@ export class EmployeeFormComponent implements OnInit {
       Object.assign(this.employee, this.selectedEmployee);
     }
   }
-  
+
   addEmployee() {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employee.id = new Date().getTime();
       this.employeeService.addEmployee(this.employee);
       this.snackBar.open('Employee Added Successfully', 'Dismiss', {
         duration: 3000,
@@ -63,7 +62,6 @@ export class EmployeeFormComponent implements OnInit {
 
   updateEmployee(): void {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employee.id = this.selectedEmployee.id;
       this.employeeService.updateEmployee(this.selectedEmployee.id, this.employee);
       this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
         duration: 3000,
@@ -100,6 +98,7 @@ export class EmployeeFormComponent implements OnInit {
       data: { title: 'Confirm Delete', message: 'Are you sure you want to delete employee?' }
     }).afterClosed().subscribe(result => {
       if (result == true) {
+        console.log(this.selectedEmployee.id);
         this.employeeService.deleteEmployee(this.selectedEmployee.id);
         this.snackBar.open('Employee Deleted', 'Dismiss', { duration: 3000, });
         this.closeEmployeeForm();

@@ -17,15 +17,15 @@ export class FilterService {
   categoryFilter(filterGroup: any, filterType: any): void {
 
     switch (filterGroup) {
-      case "department":
+      case "departments":
         departments.pop();
         departments.push(filterType);
         break;
-      case "office":
+      case "offices":
         offices.pop();
         offices.push(filterType);
         break;
-      case "jobTitle":
+      case "jobTitles":
         jobTitles.pop();
         jobTitles.push(filterType);
         break;
@@ -51,38 +51,42 @@ export class FilterService {
   }
 
   updateFilteredEmployees() {
-    let filteredEmployees = this.employeeService.getEmployees();
-  
-    if (departments.length > 0) {
-      filteredEmployees = filteredEmployees.filter(emp => emp.department === departments[0]);
-    }
-    if (offices.length > 0) {
-      filteredEmployees = filteredEmployees.filter(emp => emp.office === offices[0]);
-    }
-    if (jobTitles.length > 0) {
-      filteredEmployees = filteredEmployees.filter(emp => emp.jobTitle === jobTitles[0]);
-    }
-    if (alphabet.length > 0) {
-      filteredEmployees = filteredEmployees.filter(emp => emp.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase()));
-    }
-    if (search.length > 0 && filterType.length > 0) {
-      switch (filterType[0]) {
-        case "preferredname":
-          filteredEmployees = filteredEmployees.filter(emp => emp.preferredName.toLowerCase().includes(search[0].toLowerCase()));
-          break;
-        case "department":
-          filteredEmployees = filteredEmployees.filter(emp => emp.department.toLowerCase().includes(search[0].toLowerCase()));
-          break;
-        case "office":
-          filteredEmployees = filteredEmployees.filter(emp => emp.office.toLowerCase().includes(search[0].toLowerCase()));
-          break;
-        case "jobtitle":
-          filteredEmployees = filteredEmployees.filter(emp => emp.jobTitle.toLowerCase().includes(search[0].toLowerCase()));
-          break;
+    let filteredEmployees: Employee[] = [];
+    this.employeeService.getEmployees().subscribe(resp => {
+      filteredEmployees = resp;
+
+      if (departments.length > 0) {
+        filteredEmployees = filteredEmployees.filter(emp => emp.department === departments[0]);
       }
-    }
-  
-    this.filteredEmployeesSubject.next(filteredEmployees);
+      if (offices.length > 0) {
+        filteredEmployees = filteredEmployees.filter(emp => emp.office === offices[0]);
+      }
+      if (jobTitles.length > 0) {
+        filteredEmployees = filteredEmployees.filter(emp => emp.jobTitle === jobTitles[0]);
+      }
+      if (alphabet.length > 0) {
+        filteredEmployees = filteredEmployees.filter(emp => emp.firstName.toLowerCase().startsWith(alphabet[0].toLowerCase()));
+      }
+      if (search.length > 0 && filterType.length > 0) {
+        switch (filterType[0]) {
+          case "preferredname":
+            filteredEmployees = filteredEmployees.filter(emp => emp.preferredName.toLowerCase().includes(search[0].toLowerCase()));
+            break;
+          case "department":
+            filteredEmployees = filteredEmployees.filter(emp => emp.department.toLowerCase().includes(search[0].toLowerCase()));
+            break;
+          case "office":
+            filteredEmployees = filteredEmployees.filter(emp => emp.office.toLowerCase().includes(search[0].toLowerCase()));
+            break;
+          case "jobtitle":
+            filteredEmployees = filteredEmployees.filter(emp => emp.jobTitle.toLowerCase().includes(search[0].toLowerCase()));
+            break;
+        }
+      }
+
+      this.filteredEmployeesSubject.next(filteredEmployees);
+    });
+
   }
 
   resetFilter() {
@@ -91,8 +95,9 @@ export class FilterService {
     offices.length = 0;
     alphabet.length = 0;
     search.length = 0;
-    this.filteredEmployeesSubject.next(this.employeeService.getEmployees());
+    this.employeeService.getEmployees().subscribe(resp => {
+      this.filteredEmployeesSubject.next(resp);
+    })
   }
-
 }
 

@@ -18,6 +18,7 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { FilterService } from './services/filter.service';
 import { ContentComponent } from './components/content/content.component';
 import {HttpClientModule } from '@angular/common/http';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthenticationModule
   ],
   providers: [SharedService, EmployeeService, FilterService],
   bootstrap: [AppComponent],
