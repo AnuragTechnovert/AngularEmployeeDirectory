@@ -12,12 +12,14 @@ import { FilterService } from './services/filter.service';
 import {HttpClientModule } from '@angular/common/http';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

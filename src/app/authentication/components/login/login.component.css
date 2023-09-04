@@ -1,7 +1,7 @@
 .login-form-container {
     display: flex;
     flex-direction: column;
-    background-color: #2c733a92;
+    background-color: rgb(198, 200, 200);
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -15,8 +15,6 @@ form{
     display: flex;
     border: 1px solid gray;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 .form-label {
     font-weight: bold;

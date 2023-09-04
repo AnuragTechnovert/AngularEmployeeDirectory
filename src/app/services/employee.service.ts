@@ -22,7 +22,7 @@ export class EmployeeService {
   }
 
   public getEmployeeById(employeeId: number): Observable<Employee> {
-    return this.apiService.getById(`Employee/GetById/${employeeId}`);
+    return this.apiService.getByDetails(`Employee/GetById/${employeeId}`);
   }
 
   public deleteEmployee(employeeId: number): void {

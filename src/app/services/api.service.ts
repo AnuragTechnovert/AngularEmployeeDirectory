@@ -16,7 +16,7 @@ export class ApiService {
     return this.http.get(this.baseurl + path)
   }
 
-  getById(path:string): Observable<any> {
+  getByDetails(path:string): Observable<any> {
     return this.http.get(this.baseurl + path);
   }
 
