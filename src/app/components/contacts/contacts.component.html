@@ -1,9 +1,0 @@
-<ng-container *ngIf="isOpenForm">
-    <app-employee-form [isDetailsForm]="isOpenForm" [selectedEmployee]="selectedEmployee"></app-employee-form>
-</ng-container>
-<div class="employees-cards-container" id="employeesCardsContainer">
-    <app-employee-card *ngFor="let employee of  employees" [employee]="employee"
-        (click)="openEmployeeDetails(employee)">
-    </app-employee-card>
-    <h2 *ngIf="employees.length === 0">No employees found...</h2>
-</div>

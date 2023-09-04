@@ -1,0 +1,38 @@
+<div class="main-content-search">
+    <div class="alphabets">
+        <button class="btn-alluser" (click)="cardsContainerReset()"><i class="fa-solid fa-user fa-lg"></i></button>
+        <button *ngFor="let alphabet of alphabets" (click)="searchByAlphabet(alphabet)">{{alphabet}}</button>
+    </div>
+    <form id="searchForm">
+        <div class="search-container">
+            <div>
+                <label class="search-label">Search</label>
+                <span class="search">
+                    <i class="fa-solid  searchbar-icon  fa-magnifying-glass fa-xl"></i>
+                    <input type="search" class="search-input-box" placeholder="Enter any Keyword" name="searchQuery"
+                        [(ngModel)]="searchQuery" (input)="search()">
+                </span>
+                <button class="btn-clear-search" (click)="cardsContainerReset()">Clear</button>
+            </div>
+            <div>
+                <label class="search-label">Filter by</label>
+                <select class="search-filter-list" [(ngModel)]="filterValue" name="filterValue">
+                    <option value="preferredname" selected>Preferred Name</option>
+                    <option value="department">Department</option>
+                    <option value="office">Office</option>
+                    <option value="jobtitle">Job Title</option>
+                </select>
+            </div>
+            <div>
+                <button class="btn-add-emp" (click)="openAddEmployeeForm()">Add Employee</button>
+            </div>
+        </div>
+    </form>
+    <div class="note" >
+        <h4>Note:</h4>
+        <p>Please use the advanced filter options to refine your results.</p>
+    </div>
+    <ng-container *ngIf="isOpenForm">
+        <dashboard-employee-form [isEditMode]="isOpenForm"></dashboard-employee-form>
+    </ng-container>
+ 

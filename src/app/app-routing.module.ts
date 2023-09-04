@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmployeeFormComponent } from './components/employee-form/employee-form.component';
-import { LoginComponent } from './authentication/login/login.component';
-import { AppComponent } from './app.component';
+import { LoginComponent } from './authentication/components/login/login.component';
+import { AuthGuard } from './authentication/auth.guard';
 
 const routes: Routes = [
-  { path: 'employee/:mode', component: EmployeeFormComponent },
-  { path: 'employees', component: AppComponent },
-  {path: 'login', component:LoginComponent}
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule), canActivate:[AuthGuard] },
 ];
 
 @NgModule({
