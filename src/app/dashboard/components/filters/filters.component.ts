@@ -15,7 +15,7 @@ export class FiltersComponent {
   filterValue: string = 'preferredname';
   isOpenForm: boolean = false;
 
-  constructor(private filterService: FilterService, private router: Router) {
+  constructor(private filterService: FilterService) {
     this.alphabets = alphabets;
   }
 
@@ -28,7 +28,6 @@ export class FiltersComponent {
   }
 
   openAddEmployeeForm(): void {
-    this.router.navigate(['/employee/add']);
     this.isOpenForm = !this.isOpenForm;
   }
 

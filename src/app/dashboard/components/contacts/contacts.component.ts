@@ -19,8 +19,7 @@ export class ContactsComponent implements OnInit {
   filterValue: string = 'preferredname';
   isOpenForm: boolean = false;
   selectedEmployee!: Employee;
-
-  employees!: Employee[];
+  employees: Employee[] = [];
 
   constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService, private router: Router) {
     this.alphabets = alphabets;

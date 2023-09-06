@@ -54,3 +54,14 @@
 .text-blue {
     color: #00B1FC;
 }
+
+.btn-logout{
+    cursor: pointer;
+    background-color: 	#b23b3b;
+    border: none;
+    color: whitesmoke;
+    font-size:large;
+    height: 60px;
+    border-radius: 50px;
+    padding: 10px;
+}

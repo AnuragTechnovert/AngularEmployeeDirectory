@@ -10,7 +10,7 @@ export class EmployeeService {
   constructor(private sharedService: SharedService, private apiService: ApiService) { }
 
   public addEmployee(employee: Employee): void {
-    this.apiService.add(employee, 'Employee/Add').subscribe(() => {
+    this.apiService.post(employee, 'Employee/Add').subscribe(() => {
       this.getEmployees().subscribe(resp => {
         this.sharedService.updateChanges(resp);
       })
@@ -34,7 +34,7 @@ export class EmployeeService {
   }
 
   public updateEmployee(employeeId: number, employee: Employee): void {
-    this.apiService.update(employee, `Employee/Update/${employeeId}`).subscribe(() => {
+    this.apiService.put(employee, `Employee/Update/${employeeId}`).subscribe(() => {
       this.getEmployees().subscribe((resp) => {
         this.sharedService.updateChanges(resp);
       });

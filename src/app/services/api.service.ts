@@ -24,11 +24,11 @@ export class ApiService {
     return this.http.get(this.baseurl + path)
   }
 
-  update(data: any, path:string): Observable<any> {
+  put(data: any, path:string): Observable<any> {
     return this.http.put(this.baseurl + path, data);
   }
 
-  add(data: any,path:string): Observable<any> {
+  post(data: any,path:string): Observable<any> {
     return this.http.post(this.baseurl + path, data);
   }
 
