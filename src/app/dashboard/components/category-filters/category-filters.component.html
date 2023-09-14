@@ -1,10 +1,30 @@
 <div class="category-filters-container">
-    <div class="filters-group" *ngFor="let filterGroup of filtersGroups">
-        <h4>{{ filterGroup.title }}</h4>
+    <div class="filters-group">
+        <h4>Department</h4>
         <ul class="filters-list">
-            <li *ngFor="let item of filters[filterGroup.filterType] | keyvalue">
-                <span (click)="loadCardsByCategoryFilter(filterGroup.filterType, item.key)">
-                    {{ item.key}}({{item.value}})
+            <li *ngFor="let department of departments">
+                <span (click)=" loadCardsByCategoryFilter(categoryFilterGroupEnum.Departments,department.deptId)">
+                    {{department.deptName}}({{filters.departments[department.deptId]}})
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="filters-group">
+        <h4>Offices</h4>
+        <ul class="filters-list">
+            <li *ngFor="let office of offices">
+                <span (click)=" loadCardsByCategoryFilter(categoryFilterGroupEnum.Offices,office.officeId)">
+                    {{office.officeName}}(0)
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="filters-group">
+        <h4>JobTitle</h4>
+        <ul class="filters-list">
+            <li *ngFor="let jobTitle of jobTitles">
+                <span (click)=" loadCardsByCategoryFilter(categoryFilterGroupEnum.JobTitles,jobTitle.jobId)">
+                    {{ jobTitle.jobTitleName}}(0)
                 </span>
             </li>
         </ul>

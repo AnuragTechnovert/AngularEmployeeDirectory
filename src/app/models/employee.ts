@@ -4,9 +4,9 @@ export class Employee {
     lastName: string;
     preferredName: string;
     email: string;
-    jobTitle: string;
-    office: string;
-    department: string;
+    jobId: number;
+    officeId: number;
+    deptId: number;
     phoneNumber: string;
     skypeId: string;
     
@@ -16,9 +16,9 @@ export class Employee {
         this.lastName = !!args  && !!args.lastName ? args.lastName : '';
         this.preferredName = !!args  && !!args.preferredName ? args.preferredName : '';
         this.email = !!args  && !!args.email ? args.email : '';
-        this.jobTitle = !!args  && !!args.jobTitle ? args.jobTitle : '';
-        this.office = !!args  && !!args.office ? args.office : '';
-        this.department = !!args  && !!args.department ? args.department : '';
+        this.jobId = !!args  && !!args.jobId ? args.jobId : '';
+        this.officeId = !!args  && !!args.officeId ? args.officeId : '';
+        this.deptId = !!args  && !!args.deptId ? args.deptId : '';
         this.phoneNumber = !!args  && !!args.phoneNumber ? args.phoneNumber : '';
         this.skypeId = !!args  && !!args.skypeId ? args.skypeId : '';
     }

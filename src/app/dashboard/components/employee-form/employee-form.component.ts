@@ -1,12 +1,15 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { isFormValid } from '../helper/helper';
-import { NgForm } from '@angular/forms';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Departments } from 'src/app/models/departments';
+import { JobTitles } from 'src/app/models/jobtitles';
+import { Offices } from 'src/app/models/offices';
+import { MasterDataService } from 'src/app/services/master-data.service';
 
 @Component({
   selector: 'dashboard-employee-form',
@@ -23,31 +26,43 @@ export class EmployeeFormComponent implements OnInit {
   @Input()
   selectedEmployee!: Employee;
 
+  constructor(
+    private employeeService: EmployeeService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+  ) { }
+
+  departments: Departments[] = [];
+  jobTitles: JobTitles[] = [];
+  offices: Offices[] = [];
+
   employee: Employee = {
     id: 0,
     firstName: '',
     lastName: '',
     preferredName: '',
     email: '',
-    jobTitle: '',
-    office: '',
-    department: '',
+    jobId: 0,
+    officeId: 0,
+    deptId: 0,
     phoneNumber: '',
     skypeId: '',
   }
-
-  constructor(
-    private employeeService: EmployeeService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) { }
 
   ngOnInit() {
     if (this.selectedEmployee) {
       Object.assign(this.employee, this.selectedEmployee);
     }
+
+    this.employeeService.getDepartments().subscribe(resp => {
+      this.departments = resp;
+    });
+    this.employeeService.getJobTitles().subscribe(resp => {
+      this.jobTitles = resp;
+    });
+    this.employeeService.getOffices().subscribe(resp => {
+      this.offices = resp;
+    });
   }
 
   addEmployee() {
@@ -59,7 +74,7 @@ export class EmployeeFormComponent implements OnInit {
       this.closeEmployeeForm();
     }
   }
-  
+
   updateEmployee(): void {
     if (isFormValid(this.employee, this.snackBar)) {
       this.employeeService.updateEmployee(this.selectedEmployee.id, this.employee);
@@ -75,22 +90,20 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   closeEmployeeForm() {
-
     this.employee = {
       id: 0,
       firstName: '',
       lastName: '',
       preferredName: '',
       email: '',
-      jobTitle: '',
-      office: '',
-      department: '',
+      jobId: 0,
+      officeId: 0,
+      deptId: 0,
       phoneNumber: '',
       skypeId: '',
     }
     this.isDetailsForm = false;
     this.isEditMode = false;
-   // this.router.navigate(['']);
   }
 
   deleteEmployee() {

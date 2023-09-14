@@ -14,50 +14,39 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { JwtModule } from '@auth0/angular-jwt';
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { MasterDataService } from './services/master-data.service';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavbarComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    HttpClientModule,
-    AuthenticationModule,
-    SocialLoginModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:44394"],
-        disallowedRoutes: []
-      }
-    }),
-  ],
-  providers: [SharedService, EmployeeService, FilterService, {
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: false,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('519703144824-ecgogeuekcbrt792d2kpprqedcb1vvsj.apps.googleusercontent.com')
-        }]
-    } as SocialAuthServiceConfig
-  }
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        NavbarComponent,
+    ],
+    providers: [SharedService, EmployeeService, FilterService,MasterDataService],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        HttpClientModule,
+        AuthenticationModule,
+        DashboardModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:44394"],
+                disallowedRoutes: []
+            }
+        }),
+    ]
 })
 export class AppModule { }

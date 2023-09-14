@@ -31,30 +31,27 @@
         </div>
         <div>
             <label for="jobTitle">Job Title <span class="required"></span></label>
-            <select name="jobTitle" id="jobTitle" required ngModel [(ngModel)]="employee.jobTitle"
+            <select name="jobTitle" id="jobTitle" required ngModel [(ngModel)]="employee.jobId"
                 [disabled]="!isEditMode">
-                <option value="SharePoint Practice Head">SharePoint Practice Head</option>
-                <option value=".Net Development Lead">.Net Development Lead</option>
-                <option value="Recruiting Expert">Recruiting Expert</option>
-                <option value="BI Developer">BI Developer</option>
-                <option value="Business Analyst">Business Analyst</option>
+                <option *ngFor="let jobTitle of jobTitles" [value]="jobTitle.jobId">
+                    {{ jobTitle.jobTitleName }}
+                </option>
             </select>
         </div>
         <div>
             <label for="office">Office <span class="required"></span></label>
-            <select name="office" id="office" required ngModel [(ngModel)]="employee.office" [disabled]="!isEditMode">
-                <option value="Seattle">Seattle</option>
-                <option value="India">India</option>
+            <select name="office" id="office" required ngModel [(ngModel)]="employee.officeId" [disabled]="!isEditMode">
+                <option *ngFor="let office of offices" [value]="office.officeId">
+                    {{ office.officeName }}
+                </option>
             </select>
         </div>
         <div>
             <label for="department">Department <span class="required"></span></label>
-            <select name="department" id="department" required ngModel [(ngModel)]="employee.department"
+            <select name="department" id="department" required ngModel [(ngModel)]="employee.deptId"
                 [disabled]="!isEditMode">
-                <option value="IT">IT</option>
-                <option value="HR">Human Resources</option>
-                <option value="MD">MD</option>
-                <option value="Sales">Sales</option>
+                <option *ngFor="let department of departments" [value]="department.deptId">
+                    {{department.deptName}}</option>
             </select>
         </div>
         <div>

@@ -30,7 +30,7 @@ export class ContactsComponent implements OnInit {
     this.filterService.filteredEmployeesSubject.subscribe(filteredEmployees => {
       this.employees = filteredEmployees;
     })
-    this.sharedService.employeesDataSubject.subscribe(employees => {
+    this.sharedService.getEmployeesDataSubject().subscribe(employees => {
       this.employees = employees;
     })
     this.employeeService.getEmployees().subscribe(resp => {

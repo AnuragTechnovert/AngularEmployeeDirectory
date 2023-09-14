@@ -9,11 +9,4 @@ import { Employee } from 'src/app/models/employee';
 export class EmployeeCardComponent {
   @Input()
   employee!: Employee;
-  @Output() cardClick: EventEmitter<Employee> = new EventEmitter<Employee>();
-
-  onCardClick() {
-    if (this.employee) {
-      this.cardClick.emit(this.employee);
-    }
-  }
 }
