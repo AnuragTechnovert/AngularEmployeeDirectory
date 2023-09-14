@@ -1,0 +1,17 @@
+<header class="navbar">
+    <div class="left-top-logo">
+        <div>
+            <img class="logo-image" src='../../assets/saketa.jpg' alt="Image not found">
+        </div>
+        <div class="logo-tagline">
+            <p class="logo-heading text-blue">Employee Directory</p>
+            <p class="logo-tag">The Ultimate People Directory Experience</p>
+        </div>
+    </div>
+    <div class="loggedin-user">
+        <p><span class="text-blue"> Welcome,</span>&nbsp; {{loggedinUser}}</p>
+        <img class="user-image" src='../../assets/profile.jpg' alt="Image not found">
+        <button class="btn-logout" (click)="logout()">Logout</button>
+    </div>
+</header>
+<hr>

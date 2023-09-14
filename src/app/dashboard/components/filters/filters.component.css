@@ -1,0 +1,89 @@
+.search-container {
+    display: grid;
+    grid-template-columns: 40% 25% auto;
+    column-gap: 20px;
+    gap: 20px;
+}
+
+.alphabets {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.alphabets>button {
+    font-size: medium;
+    height: 48px;
+    width: 48px;
+    margin: 1.6px;
+    border: none;
+    background-color: #00B1FC;
+    color: white;
+    cursor: pointer;
+}
+
+.search-label {
+    font-size: 18px;
+    padding-right: 14px;
+}
+
+.searchbar-icon {
+    color: #969595;
+    margin-right: 15px;
+}
+
+.search-input-box {
+    font-size: 19px;
+    border: none;
+}
+
+.search-input-box:focus {
+    border: none;
+    outline: none;
+    background-color: white;
+}
+
+.search {
+    border: 1px solid#C2C2C2;
+    padding: 11px;
+}
+
+.btn-clear-search {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 19px;
+    background-color: rgb(123 188 26);
+    border: none;
+    color: whitesmoke;
+    width: 100px;
+    margin-left: 36px;
+}
+
+.search-filter-list {
+    border: 1px solid#C2C2C2;
+    padding: 10px;
+    width: 12vw;
+    padding-right: 32px;
+    color: #C2C2C2;
+    font-size: 18px;
+}
+
+.btn-add-emp {
+    cursor: pointer;
+    background-color: #00B1FC;
+    border: none;
+    color: whitesmoke;
+    margin-left: 66%;
+    padding: 10px;
+    font-size: 19px;
+}
+
+.note {
+    display: flex;
+    font-size: 18px;
+    gap: 4px;
+}
+
+.note>p {
+    margin-top: 25px;
+    color: #514b4bd9;
+}

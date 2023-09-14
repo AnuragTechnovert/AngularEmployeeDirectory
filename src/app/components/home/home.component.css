@@ -1,0 +1,29 @@
+.home-page{
+    margin: 30px;
+}
+.home-container{
+    display: flex;
+    background-color: rgb(240, 242, 242);
+    margin-top: -9px;
+}
+
+h1{
+    font-size: 70px;
+}
+
+p {
+    color: rgb(131, 139, 139);
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+.headings{
+    margin-left: 150px;
+    margin-top: 50px;
+    margin-right: 150px;
+}
+
+img{
+    width: 500px;
+    margin: 50px;
+}
