@@ -16,13 +16,19 @@
             </div>
             <div>
                 <label class="search-label">Filter by</label>
-                <select class="search-filter-list" [(ngModel)]="filterValue" name="filterValue">
-                    <option value="preferredname" selected>Preferred Name</option>
-                    <option value="department">Department</option>
-                    <option value="office">Office</option>
-                    <option value="jobtitle">Job Title</option>
+                <select class="search-filter-list" [(ngModel)]="selectedFilterOption" name="selectedFilterOption">
+                    <option value={{filterOptionsEnum.PreferredName}} selected>Preferred Name</option>
+                    <option value={{filterOptionsEnum.Department}}>Department</option>
+                    <option value={{filterOptionsEnum.Office}}>Office</option>
+                    <option value={{filterOptionsEnum.JobTitle}}>Job Title</option>
                 </select>
             </div>
+            <!-- <select class="search-filter-list" [(ngModel)]="selectedFilterOption" name="filterValue">
+                <option value="preferredName" selected>Preferred Name</option>
+                <option value={{filterOptionsEnum.Department}}>Department</option>
+                <option value={{filterOptionsEnum.Office}}>Office</option>
+                <option value={{filterOptionsEnum.JobTitle}}>Job Title</option>
+            </select> -->
             <div>
                 <button class="btn-add-emp" (click)="openAddEmployeeForm()">Add Employee</button>
             </div>

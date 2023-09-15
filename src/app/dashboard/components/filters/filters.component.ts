@@ -3,6 +3,12 @@ import { alphabets } from '../contacts/varibles';
 import { FilterService } from 'src/app/services/filter.service';
 import { Router } from '@angular/router';
 
+enum filterOptions {
+  PreferredName,
+  Department,
+  Office,
+  JobTitle
+}
 @Component({
   selector: 'dashboard-filters',
   templateUrl: './filters.component.html',
@@ -10,9 +16,10 @@ import { Router } from '@angular/router';
 })
 export class FiltersComponent {
 
+  filterOptionsEnum = filterOptions;
   alphabets: string[];
   searchQuery: string = '';
-  filterValue: string = 'preferredname';
+  selectedFilterOption: number = filterOptions.PreferredName ;
   isOpenForm: boolean = false;
 
   constructor(private filterService: FilterService) {
@@ -24,7 +31,7 @@ export class FiltersComponent {
   }
 
   search(): void {
-    this.filterService.searchFilter(this.filterValue, this.searchQuery);
+    this.filterService.searchFilter(this.selectedFilterOption, this.searchQuery);
   }
 
   openAddEmployeeForm(): void {
@@ -33,7 +40,7 @@ export class FiltersComponent {
 
   cardsContainerReset = () => {
     this.searchQuery = "";
-    this.filterValue = 'preferredname';
+    this.selectedFilterOption = filterOptions.PreferredName ;
     this.filterService.resetFilter();
   }
 }

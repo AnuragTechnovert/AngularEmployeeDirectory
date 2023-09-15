@@ -37,7 +37,7 @@ export class EmployeeFormComponent implements OnInit {
   offices: Offices[] = [];
 
   employee: Employee = {
-    id: 0,
+    empId: 0,
     firstName: '',
     lastName: '',
     preferredName: '',
@@ -77,7 +77,7 @@ export class EmployeeFormComponent implements OnInit {
 
   updateEmployee(): void {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employeeService.updateEmployee(this.selectedEmployee.id, this.employee);
+      this.employeeService.updateEmployee(this.selectedEmployee.empId, this.employee);
       this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
         duration: 3000,
       });
@@ -91,7 +91,7 @@ export class EmployeeFormComponent implements OnInit {
 
   closeEmployeeForm() {
     this.employee = {
-      id: 0,
+      empId: 0,
       firstName: '',
       lastName: '',
       preferredName: '',
@@ -111,8 +111,7 @@ export class EmployeeFormComponent implements OnInit {
       data: { title: 'Confirm Delete', message: 'Are you sure you want to delete employee?' }
     }).afterClosed().subscribe(result => {
       if (result == true) {
-        console.log(this.selectedEmployee.id);
-        this.employeeService.deleteEmployee(this.selectedEmployee.id);
+        this.employeeService.deleteEmployee(this.selectedEmployee.empId);
         this.snackBar.open('Employee Deleted', 'Dismiss', { duration: 3000, });
         this.closeEmployeeForm();
       }

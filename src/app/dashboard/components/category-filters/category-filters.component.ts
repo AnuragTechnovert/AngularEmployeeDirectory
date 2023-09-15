@@ -9,10 +9,11 @@ import { JobTitles } from 'src/app/models/jobtitles';
 import { Offices } from 'src/app/models/offices';
 import { MasterDataService } from 'src/app/services/master-data.service';
 
-enum categoryFilterGroup {
-  Departments,
-  Offices,
-  JobTitles,
+enum filterOptions {
+  PreferredName,
+  Department,
+  Office,
+  JobTitle
 }
 
 @Component({
@@ -26,7 +27,7 @@ export class CategoryFiltersComponent implements OnInit {
   departments: Departments[] = [];
   jobTitles: JobTitles[] = [];
   offices: Offices[] = [];
-  categoryFilterGroupEnum = categoryFilterGroup;
+  categoryFilterGroupEnum = filterOptions;
 
   constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService, private router: Router, private masterData: MasterDataService) {
     this.employeeService.getDepartments().subscribe(resp => {
