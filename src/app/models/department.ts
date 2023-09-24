@@ -1,4 +1,4 @@
-export class Departments{
+export class Department{
     deptId:number;
     deptName: string;
     constructor(args:any){

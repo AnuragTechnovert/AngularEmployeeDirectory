@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
 import { alphabets } from '../contacts/varibles';
 import { FilterService } from 'src/app/services/filter.service';
-import { Router } from '@angular/router';
+import { filterOptionsEnum } from 'src/app/enums/filter-options-enum';
 
-enum filterOptions {
-  PreferredName,
-  Department,
-  Office,
-  JobTitle
-}
 @Component({
   selector: 'dashboard-filters',
   templateUrl: './filters.component.html',
@@ -16,10 +10,10 @@ enum filterOptions {
 })
 export class FiltersComponent {
 
-  filterOptionsEnum = filterOptions;
+  filterOptionsEnum = filterOptionsEnum;
   alphabets: string[];
   searchQuery: string = '';
-  selectedFilterOption: number = filterOptions.PreferredName ;
+  selectedFilterOption: number = this.filterOptionsEnum.PreferredName ;
   isOpenForm: boolean = false;
 
   constructor(private filterService: FilterService) {
@@ -40,7 +34,7 @@ export class FiltersComponent {
 
   cardsContainerReset = () => {
     this.searchQuery = "";
-    this.selectedFilterOption = filterOptions.PreferredName ;
+    this.selectedFilterOption = this.filterOptionsEnum.PreferredName ;
     this.filterService.resetFilter();
   }
 }

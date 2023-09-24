@@ -1,7 +1,6 @@
 .category-filters-container {
     flex-basis: 30%;
     margin-top: -28px;
-    font-size: 22px;
 }
 
 .filters-list {
@@ -13,6 +12,8 @@
 .filters-list>li {
     color: #514b4bd9;
 }
+
 .filters-list>li>span{
     cursor: pointer;
 }
+

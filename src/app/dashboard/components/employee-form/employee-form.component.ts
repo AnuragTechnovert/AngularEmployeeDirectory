@@ -1,15 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { isFormValid } from '../helper/helper';
+import { isFormValid } from '../helper/form-helper';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Departments } from 'src/app/models/departments';
-import { JobTitles } from 'src/app/models/jobtitles';
-import { Offices } from 'src/app/models/offices';
+import { MasterData } from 'src/app/models/masterdata';
 import { MasterDataService } from 'src/app/services/master-data.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'dashboard-employee-form',
@@ -25,16 +23,19 @@ export class EmployeeFormComponent implements OnInit {
   isDetailsForm: boolean = false;
   @Input()
   selectedEmployee!: Employee;
+  masterData:MasterData = {
+    departments: [],
+    offices: [],
+    jobTitles: []
+  };
 
   constructor(
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private masterDataService:MasterDataService,
+    private sharedService:SharedService
   ) { }
-
-  departments: Departments[] = [];
-  jobTitles: JobTitles[] = [];
-  offices: Offices[] = [];
 
   employee: Employee = {
     empId: 0,
@@ -53,23 +54,16 @@ export class EmployeeFormComponent implements OnInit {
     if (this.selectedEmployee) {
       Object.assign(this.employee, this.selectedEmployee);
     }
-
-    this.employeeService.getDepartments().subscribe(resp => {
-      this.departments = resp;
-    });
-    this.employeeService.getJobTitles().subscribe(resp => {
-      this.jobTitles = resp;
-    });
-    this.employeeService.getOffices().subscribe(resp => {
-      this.offices = resp;
-    });
+    this.masterData =  this.masterDataService.masterData;
   }
 
   addEmployee() {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employeeService.addEmployee(this.employee);
-      this.snackBar.open('Employee Added Successfully', 'Dismiss', {
-        duration: 3000,
+      this.employeeService.addEmployee(this.employee).subscribe(()=>{
+        this.getUpdatedEmployeesData();
+        this.snackBar.open('Employee Added Successfully', 'Dismiss', {
+          duration: 3000,
+        });
       });
       this.closeEmployeeForm();
     }
@@ -77,9 +71,11 @@ export class EmployeeFormComponent implements OnInit {
 
   updateEmployee(): void {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employeeService.updateEmployee(this.selectedEmployee.empId, this.employee);
-      this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
-        duration: 3000,
+      this.employeeService.updateEmployee(this.selectedEmployee.empId, this.employee).subscribe(()=>{
+        this.getUpdatedEmployeesData();
+        this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
+          duration: 3000,
+        });
       });
       this.closeEmployeeForm();
     }
@@ -111,10 +107,18 @@ export class EmployeeFormComponent implements OnInit {
       data: { title: 'Confirm Delete', message: 'Are you sure you want to delete employee?' }
     }).afterClosed().subscribe(result => {
       if (result == true) {
-        this.employeeService.deleteEmployee(this.selectedEmployee.empId);
-        this.snackBar.open('Employee Deleted', 'Dismiss', { duration: 3000, });
+        this.employeeService.deleteEmployee(this.selectedEmployee.empId).subscribe(()=>{
+          this.getUpdatedEmployeesData();
+          this.snackBar.open('Employee Deleted', 'Dismiss', { duration: 3000, });
+        });
         this.closeEmployeeForm();
       }
+    });
+  }
+  getUpdatedEmployeesData()
+  {
+    this.employeeService.getEmployees().subscribe(employees=>{
+      this.sharedService.updateChanges(employees);
     });
   }
 }

@@ -1,10 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { alphabets } from './varibles';
 import { FilterService } from 'src/app/services/filter.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-contacts',
@@ -14,17 +12,11 @@ import { Router } from '@angular/router';
 
 export class ContactsComponent implements OnInit {
 
-  alphabets: string[];
-  searchQuery: string = '';
-  filterValue: string = 'preferredname';
   isOpenForm: boolean = false;
   selectedEmployee!: Employee;
   employees: Employee[] = [];
 
-  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService, private router: Router) {
-    this.alphabets = alphabets;
-
-  }
+  constructor(private employeeService: EmployeeService, private filterService: FilterService, private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.filterService.filteredEmployeesSubject.subscribe(filteredEmployees => {
@@ -33,8 +25,8 @@ export class ContactsComponent implements OnInit {
     this.sharedService.getEmployeesDataSubject().subscribe(employees => {
       this.employees = employees;
     })
-    this.employeeService.getEmployees().subscribe(resp => {
-      this.employees = resp;
+    this.employeeService.getEmployees().subscribe(employees => {
+      this.employees = employees;
     })
   }
 

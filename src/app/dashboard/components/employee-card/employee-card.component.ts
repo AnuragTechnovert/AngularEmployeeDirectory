@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Departments } from 'src/app/models/departments';
+import { Component, Input } from '@angular/core';
+import { Department } from 'src/app/models/department';
 import { Employee } from 'src/app/models/employee';
-import { JobTitles } from 'src/app/models/jobtitles';
-import { Offices } from 'src/app/models/offices';
-import { EmployeeService } from 'src/app/services/employee.service';
+import { JobTitle } from 'src/app/models/jobtitle';
+import { MasterData } from 'src/app/models/masterdata';
 import { MasterDataService } from 'src/app/services/master-data.service';
 
 @Component({
@@ -14,31 +13,18 @@ import { MasterDataService } from 'src/app/services/master-data.service';
 export class EmployeeCardComponent {
   @Input()
   employee!: Employee;
-
-  departments: Departments[] = [];
-  jobTitles: JobTitles[] = [];
-  offices: Offices[] = [];
-
-  constructor(private employeeService: EmployeeService, private masterData: MasterDataService) {
-    this.employeeService.getDepartments().subscribe(resp => {
-      this.departments = resp;
-    });
-    this.employeeService.getJobTitles().subscribe(resp => {
-      this.jobTitles = resp;
-    });
-    this.employeeService.getOffices().subscribe(resp => {
-      this.offices = resp;
-    }); 
+  masterData:MasterData;
+  constructor(private masterDataService:MasterDataService) { 
+    this.masterData = this.masterDataService.masterData;
   }
 
-   getJobTitleNameById(jobId: number): string|undefined{
-    const jobTitle = this.jobTitles.find((data) => data.jobId === jobId);
+  getJobTitleNameById(jobId: number): string | undefined {
+    const jobTitle = this.masterData.jobTitles.find((data: JobTitle) => data.jobId === jobId);
     return jobTitle ? jobTitle.jobTitleName : undefined;
   }
 
-   getDeptNameById(deptId: number): string|undefined{
-    const department = this.departments.find((data) => data.deptId === deptId);
+  getDeptNameById(deptId: number): string | undefined {
+    const department = this.masterData.departments.find((data: Department) => data.deptId === deptId);
     return department ? department.deptName : undefined;
   }
-
 }

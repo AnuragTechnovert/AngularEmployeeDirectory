@@ -1,4 +1,4 @@
-export class Offices {
+export class Office{
     officeId: number;
     officeName: string;
 

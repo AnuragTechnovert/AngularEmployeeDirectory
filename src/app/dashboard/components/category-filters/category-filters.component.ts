@@ -3,18 +3,9 @@ import { SharedService } from '../../../services/shared.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Employee } from 'src/app/models/employee';
 import { FilterService } from 'src/app/services/filter.service';
-import { Router } from '@angular/router';
-import { Departments } from 'src/app/models/departments';
-import { JobTitles } from 'src/app/models/jobtitles';
-import { Offices } from 'src/app/models/offices';
 import { MasterDataService } from 'src/app/services/master-data.service';
-
-enum filterOptions {
-  PreferredName,
-  Department,
-  Office,
-  JobTitle
-}
+import { MasterData } from 'src/app/models/masterdata';
+import { filterOptionsEnum } from 'src/app/enums/filter-options-enum';
 
 @Component({
   selector: 'dashboard-category-filters',
@@ -22,23 +13,17 @@ enum filterOptions {
   styleUrls: ['./category-filters.component.css'],
 })
 export class CategoryFiltersComponent implements OnInit {
-
   filters: any;
-  departments: Departments[] = [];
-  jobTitles: JobTitles[] = [];
-  offices: Offices[] = [];
-  categoryFilterGroupEnum = filterOptions;
+  masterData:MasterData = {
+    departments: [],
+    offices: [],
+    jobTitles: []
+  };
+  categoryFilterGroupEnum = filterOptionsEnum;
 
-  constructor(private sharedService: SharedService, private employeeService: EmployeeService, private filterService: FilterService, private router: Router, private masterData: MasterDataService) {
-    this.employeeService.getDepartments().subscribe(resp => {
-      this.departments = resp;
-    });
-    this.employeeService.getJobTitles().subscribe(resp => {
-      this.jobTitles = resp;
-    });
-    this.employeeService.getOffices().subscribe(resp => {
-      this.offices = resp;
-    });
+  constructor(private sharedService: SharedService, private employeeService: EmployeeService,
+    private filterService: FilterService, private masterDataService: MasterDataService) {
+    this.masterData = this.masterDataService.getMasterData();
   }
 
   ngOnInit() {
@@ -47,7 +32,6 @@ export class CategoryFiltersComponent implements OnInit {
       offices: {},
       jobTitles: {},
     }
-
     this.sharedService?.getEmployeesDataSubject().subscribe((employees: Employee[]) => {
       this.updateCategoryFilters(employees);
     })
@@ -55,7 +39,7 @@ export class CategoryFiltersComponent implements OnInit {
       this.updateCategoryFilters(employees);
     })
   }
-  
+
   updateCategoryFilters(employees: Employee[]) {
     this.filters.departments = {};
     this.filters.offices = {};

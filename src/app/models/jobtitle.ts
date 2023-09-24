@@ -1,4 +1,4 @@
-export class JobTitles {
+export class JobTitle {
     jobId: number;
     jobTitleName: string;
 

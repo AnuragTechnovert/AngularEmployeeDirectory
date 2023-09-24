@@ -33,7 +33,7 @@
             <label for="jobTitle">Job Title <span class="required"></span></label>
             <select name="jobTitle" id="jobTitle" required ngModel [(ngModel)]="employee.jobId"
                 [disabled]="!isEditMode">
-                <option *ngFor="let jobTitle of jobTitles" [value]="jobTitle.jobId">
+                <option *ngFor="let jobTitle of masterData.jobTitles" [value]="jobTitle.jobId">
                     {{ jobTitle.jobTitleName }}
                 </option>
             </select>
@@ -41,7 +41,7 @@
         <div>
             <label for="office">Office <span class="required"></span></label>
             <select name="office" id="office" required ngModel [(ngModel)]="employee.officeId" [disabled]="!isEditMode">
-                <option *ngFor="let office of offices" [value]="office.officeId">
+                <option *ngFor="let office of masterData.offices" [value]="office.officeId">
                     {{ office.officeName }}
                 </option>
             </select>
@@ -50,7 +50,7 @@
             <label for="department">Department <span class="required"></span></label>
             <select name="department" id="department" required ngModel [(ngModel)]="employee.deptId"
                 [disabled]="!isEditMode">
-                <option *ngFor="let department of departments" [value]="department.deptId">
+                <option *ngFor="let department of masterData.departments" [value]="department.deptId">
                     {{department.deptName}}</option>
             </select>
         </div>
@@ -65,9 +65,9 @@
                 [disabled]="!isEditMode">
         </div>
         <div class="btn-row">
-            <button type="submit" class="btn-submit" *ngIf="!isDetailsForm">Submit</button>
-            <button class="btn-submit" *ngIf="isEditMode && isDetailsForm">Save</button>
-            <button type="button" class="close" (click)="closeEmployeeForm()">Cancel</button>
+            <button type="submit" class="btn-submit font-20  mt-20 mb-20 m-5" *ngIf="!isDetailsForm">Submit</button>
+            <button class="btn-save font-20  mt-20 mb-20 m-5" *ngIf="isEditMode && isDetailsForm">Save</button>
+            <button type="button" class="close font-20 p-10 mt-20 mb-20 m-5" (click)="closeEmployeeForm()">Cancel</button>
         </div>
     </form>
 </div>
