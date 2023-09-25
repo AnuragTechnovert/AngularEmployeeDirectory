@@ -8,6 +8,7 @@ import {_baseUrl} from 'src/environment/environment'
 })
 export class ApiService {
   baseurl:string = _baseUrl;
+
   constructor(private http: HttpClient) { }
 
   get(path:string): Observable<any> {
@@ -29,5 +30,4 @@ export class ApiService {
   post(data: any,path:string): Observable<any> {
     return this.http.post(this.baseurl + path, data);
   }
-
 }

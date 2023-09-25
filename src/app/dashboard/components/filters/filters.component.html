@@ -1,7 +1,7 @@
 <div class="main-content-search">
     <div class="alphabets">
         <button class="btn-alluser" (click)="cardsContainerReset()"><i class="fa-solid fa-user fa-lg"></i></button>
-        <button *ngFor="let alphabet of alphabets" (click)="searchByAlphabet(alphabet)">{{alphabet}}</button>
+        <button *ngFor="let alphabet of alphabets" (click)="searchByAlphabet(alphabet)" [class.selected]="selectedAlphabet === alphabet">{{alphabet}}</button>
     </div>
     <form id="searchForm">
         <div class="search-container">

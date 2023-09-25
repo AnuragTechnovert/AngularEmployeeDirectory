@@ -11,9 +11,10 @@ import { filterOptionsEnum } from 'src/app/enums/filter-options-enum';
 export class FiltersComponent {
 
   filterOptionsEnum = filterOptionsEnum;
+  selectedAlphabet: string = '';
   alphabets: string[];
   searchQuery: string = '';
-  selectedFilterOption: number = this.filterOptionsEnum.PreferredName ;
+  selectedFilterOption: number = this.filterOptionsEnum.PreferredName;
   isOpenForm: boolean = false;
 
   constructor(private filterService: FilterService) {
@@ -21,7 +22,15 @@ export class FiltersComponent {
   }
 
   searchByAlphabet(alphabet: string): void {
-    this.filterService.alphabetFilter(alphabet);
+    if (this.selectedAlphabet == alphabet) {
+      this.selectedAlphabet = '';
+      this.filterService.alphabetFilter('');
+    }
+    else {
+      this.selectedAlphabet = alphabet;
+      this.filterService.alphabetFilter(alphabet);
+    }
+
   }
 
   search(): void {
@@ -33,8 +42,9 @@ export class FiltersComponent {
   }
 
   cardsContainerReset = () => {
+    this.selectedAlphabet = '';
     this.searchQuery = "";
-    this.selectedFilterOption = this.filterOptionsEnum.PreferredName ;
+    this.selectedFilterOption = this.filterOptionsEnum.PreferredName;
     this.filterService.resetFilter();
   }
 }

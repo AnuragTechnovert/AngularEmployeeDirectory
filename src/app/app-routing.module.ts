@@ -9,13 +9,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
+   { path: 'home', component: HomeComponent },
+   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  // { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
-];
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+  //  { path: 'dashboard', component: DashboardComponent },
+     { path: '**', redirectTo: 'home', pathMatch: 'full' },
+ ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

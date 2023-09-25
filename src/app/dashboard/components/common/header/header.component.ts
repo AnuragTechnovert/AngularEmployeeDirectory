@@ -11,12 +11,12 @@ export class HeaderComponent {
 
   loggedinUser: string = '';
   constructor(private jwtHelper: JwtHelperService, private router: Router) {
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      const decodedToken = this.jwtHelper.decodeToken(token);
-      this.loggedinUser = decodedToken.sub;
-    } else
-      this.router.navigate(['/login']);
+    // const token = localStorage.getItem("jwt");
+    // if (token) {
+    //   const decodedToken = this.jwtHelper.decodeToken(token);
+    //   this.loggedinUser = decodedToken.sub;
+    // } else
+      // this.router.navigate(['/login']);
   }
 
   logout() {

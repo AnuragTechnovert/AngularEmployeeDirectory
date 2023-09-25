@@ -14,7 +14,6 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { JwtModule } from '@auth0/angular-jwt';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { MasterDataService } from './services/master-data.service';
 
 export function tokenGetter() {
@@ -39,11 +38,10 @@ export function tokenGetter() {
         MatDialogModule,
         HttpClientModule,
         AuthenticationModule,
-        DashboardModule,
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                allowedDomains: ["localhost:44394"],
+                allowedDomains: ["localhost:4200"],
                 disallowedRoutes: []
             }
         }),

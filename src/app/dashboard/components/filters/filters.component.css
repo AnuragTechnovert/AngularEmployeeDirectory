@@ -21,6 +21,14 @@
     cursor: pointer;
 }
 
+.alphabets>button:hover {
+    background-color:  #0a83b773  ;
+}
+
+.selected{
+    background-color:  #0a83b7  !important;
+}
+
 .search-label {
     font-size: 18px;
     padding-right: 14px;
@@ -58,6 +66,10 @@
     margin-left: 36px;
 }
 
+.btn-clear-search:hover{
+    background-color: rgb(96, 141, 29);
+}
+
 .search-filter-list {
     border: 1px solid#C2C2C2;
     padding: 10px;
@@ -75,6 +87,10 @@
     margin-left: 66%;
     padding: 10px;
     font-size: 19px;
+}
+
+.btn-add-emp:hover{
+    background-color:  #0a83b7;
 }
 
 .note {

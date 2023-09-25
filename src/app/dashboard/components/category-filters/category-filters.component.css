@@ -13,7 +13,15 @@
     color: #514b4bd9;
 }
 
-.filters-list>li>span{
+
+.filters-list>li>span {
     cursor: pointer;
 }
 
+.filters-list>li>span:hover {
+color:  #0a83b7 ;
+}
+
+.selected{
+    color: #00B1FC !important;
+}

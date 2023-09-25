@@ -13,8 +13,13 @@ import { filterOptionsEnum } from 'src/app/enums/filter-options-enum';
   styleUrls: ['./category-filters.component.css'],
 })
 export class CategoryFiltersComponent implements OnInit {
+
+  isClicked: boolean = false;
   filters: any;
-  masterData:MasterData = {
+  selectedDepartmentId: number | null = null;
+  selectedOfficeId: number | null = null;
+  selectedJobTitleId: number | null = null;
+  masterData: MasterData = {
     departments: [],
     offices: [],
     jobTitles: []
@@ -33,6 +38,9 @@ export class CategoryFiltersComponent implements OnInit {
       jobTitles: {},
     }
     this.sharedService?.getEmployeesDataSubject().subscribe((employees: Employee[]) => {
+      this.selectedDepartmentId = null;
+      this.selectedOfficeId = null;
+      this.selectedJobTitleId = null;
       this.updateCategoryFilters(employees);
     })
     this.employeeService.getEmployees().subscribe(employees => {
@@ -52,6 +60,34 @@ export class CategoryFiltersComponent implements OnInit {
   }
 
   loadCardsByCategoryFilter = (filterGroupId: number, filterTypeId: number): void => {
-    this.filterService.categoryFilter(filterGroupId, filterTypeId);
+    switch (filterGroupId) {
+      case filterOptionsEnum.Department:
+        if (this.selectedDepartmentId === filterTypeId) {
+          this.selectedDepartmentId = null;
+          this.filterService.categoryFilter(filterGroupId, null);
+        } else {
+          this.selectedDepartmentId = filterTypeId;
+          this.filterService.categoryFilter(filterGroupId, filterTypeId);
+        }
+        break;
+      case filterOptionsEnum.Office:
+        if (this.selectedOfficeId === filterTypeId) {
+          this.selectedOfficeId = null;
+          this.filterService.categoryFilter(filterGroupId, null);
+        } else {
+          this.selectedOfficeId = filterTypeId;
+          this.filterService.categoryFilter(filterGroupId, filterTypeId);
+        }
+        break;
+      case filterOptionsEnum.JobTitle:
+        if (this.selectedJobTitleId === filterTypeId) {
+          this.selectedJobTitleId = null;
+          this.filterService.categoryFilter(filterGroupId, null);
+        } else {
+          this.selectedJobTitleId = filterTypeId;
+          this.filterService.categoryFilter(filterGroupId, filterTypeId);
+        }
+        break;
+    }
   }
 }

@@ -2,7 +2,7 @@
     <div class="filters-group">
         <h4>Department</h4>
         <ul class="filters-list">
-            <li *ngFor="let department of masterData.departments">
+            <li *ngFor="let department of masterData.departments" [class.selected]="selectedDepartmentId === department.deptId">
                 <span (click)=" loadCardsByCategoryFilter(categoryFilterGroupEnum.Department,department.deptId)">
                     {{department.deptName}}({{filters.departments[department.deptId]}})
                 </span>
@@ -12,17 +12,17 @@
     <div class="filters-group">
         <h4>Offices</h4>
         <ul class="filters-list">
-            <li *ngFor="let office of masterData.offices">
+            <li *ngFor="let office of masterData.offices" [class.selected]="selectedOfficeId === office.officeId">
                 <span (click)=" loadCardsByCategoryFilter(categoryFilterGroupEnum.Office,office.officeId)">
                     {{office.officeName}}({{filters.offices[office.officeId]}})
                 </span>
             </li>
         </ul>
     </div>
-    <div class="filters-group">
+    <div class="filters-group"> 
         <h4>JobTitle</h4>
         <ul class="filters-list">
-            <li *ngFor="let jobTitle of masterData.jobTitles">
+            <li *ngFor="let jobTitle of masterData.jobTitles" [class.selected]="selectedJobTitleId === jobTitle.jobId">
                 <span (click)=" loadCardsByCategoryFilter(categoryFilterGroupEnum.JobTitle,jobTitle.jobId)">
                     {{ jobTitle.jobTitleName}}({{filters.jobTitles[jobTitle.jobId]}})
                 </span>

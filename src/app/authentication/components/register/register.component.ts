@@ -19,11 +19,11 @@ export class RegisterComponent {
   constructor(private authService:AuthService,private snackBar:MatSnackBar, private router:Router){}
 
   onRegisterFormSubmit(){
-    this.authService.registerUser(this.registerFormModel).subscribe(()=>{
-      this.snackBar.open('User Registered Successfully', 'Dismiss', {
-        duration: 3000
-      });
-      this.router.navigate(['login']);
-    })
+    // this.authService.registerUser(this.registerFormModel).subscribe(()=>{
+    //   this.snackBar.open('User Registered Successfully', 'Dismiss', {
+    //     duration: 3000
+    //   });
+    //   this.router.navigate(['login']);
+    // })
   }
 }

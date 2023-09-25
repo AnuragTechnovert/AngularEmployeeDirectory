@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { EmployeeService } from './employee.service';
 import { MasterDataService } from './master-data.service';
 import { filterOptionsEnum } from '../enums/filter-options-enum';
+import { SharedService } from './shared.service';
 
 @Injectable()
 export class FilterService {
@@ -18,12 +19,11 @@ export class FilterService {
     filterById: null as number | null
   };
 
-  constructor(private employeeService: EmployeeService, private masterDataService: MasterDataService) {
+  constructor(private employeeService: EmployeeService, private masterDataService: MasterDataService, private sharedService: SharedService) {
     this.filteredEmployeesSubject = new Subject<Employee[]>();
   }
 
-  categoryFilter(filterGroupId: number, filterTypeId: number): void {
-
+  categoryFilter(filterGroupId: number, filterTypeId: number | null): void {
     switch (filterGroupId) {
       case filterOptionsEnum.Department:
         this.filters.deptId = filterTypeId;
@@ -50,9 +50,7 @@ export class FilterService {
   }
 
   filterEmployees() {
-
     let filteredEmployees: Employee[] = [];
-
     this.employeeService.getEmployees().subscribe(employees => {
       filteredEmployees = employees;
       if (this.filters.deptId) {
@@ -119,6 +117,7 @@ export class FilterService {
     };
     this.employeeService.getEmployees().subscribe(resp => {
       this.filteredEmployeesSubject.next(resp);
+      this.sharedService.updateChanges(resp);
     })
   }
 }

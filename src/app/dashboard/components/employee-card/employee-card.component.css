@@ -3,7 +3,12 @@
     background-color: #E9E8E8;
     width: 305px;
     height: 98px;
-    line-height: 4px
+    line-height: 4px;
+    cursor: pointer;
+}
+
+.emp-card:hover{
+    background-color: #0a83b773  ;
 }
 
 .emp-card>div {
@@ -14,14 +19,6 @@
 .emp-card>img {
     width: 90px;
     height: 95px;
-}
-
-.text-light {
-    color: #514b4bd9;
-}
-
-.text-blue {
-    color: #00B1FC;
 }
 
 .card-icon {

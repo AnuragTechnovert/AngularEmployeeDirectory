@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
 
   loginModel = {
-    userName: '',
+    email: '',
     password: ''
   }
 
@@ -32,8 +32,7 @@ export class LoginComponent {
         }
         return throwError(error);
       })
-    ).
-      subscribe(response => {
+    ).subscribe(response => {
         const token = (<any>response).token;
         localStorage.setItem("jwt", token);
         this.router.navigate(['dashboard']);
@@ -41,5 +40,5 @@ export class LoginComponent {
           duration: 3000
         });
       });
-  }
+   }
 }

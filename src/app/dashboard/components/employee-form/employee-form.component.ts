@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { isFormValid } from '../helper/form-helper';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -23,7 +23,10 @@ export class EmployeeFormComponent implements OnInit {
   isDetailsForm: boolean = false;
   @Input()
   selectedEmployee!: Employee;
-  masterData:MasterData = {
+  @Output()
+  closeForm = new EventEmitter<any>();
+
+  masterData: MasterData = {
     departments: [],
     offices: [],
     jobTitles: []
@@ -33,33 +36,22 @@ export class EmployeeFormComponent implements OnInit {
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private masterDataService:MasterDataService,
-    private sharedService:SharedService
+    private masterDataService: MasterDataService,
+    private sharedService: SharedService
   ) { }
 
-  employee: Employee = {
-    empId: 0,
-    firstName: '',
-    lastName: '',
-    preferredName: '',
-    email: '',
-    jobId: 0,
-    officeId: 0,
-    deptId: 0,
-    phoneNumber: '',
-    skypeId: '',
-  }
+  employee: Employee = new Employee();
 
   ngOnInit() {
     if (this.selectedEmployee) {
       Object.assign(this.employee, this.selectedEmployee);
     }
-    this.masterData =  this.masterDataService.masterData;
+    this.masterData = this.masterDataService.masterData;
   }
 
   addEmployee() {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employeeService.addEmployee(this.employee).subscribe(()=>{
+      this.employeeService.addEmployee(this.employee).subscribe(() => {
         this.getUpdatedEmployeesData();
         this.snackBar.open('Employee Added Successfully', 'Dismiss', {
           duration: 3000,
@@ -71,7 +63,7 @@ export class EmployeeFormComponent implements OnInit {
 
   updateEmployee(): void {
     if (isFormValid(this.employee, this.snackBar)) {
-      this.employeeService.updateEmployee(this.selectedEmployee.empId, this.employee).subscribe(()=>{
+      this.employeeService.updateEmployee(this.selectedEmployee.empId, this.employee).subscribe(() => {
         this.getUpdatedEmployeesData();
         this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
           duration: 3000,
@@ -86,20 +78,10 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   closeEmployeeForm() {
-    this.employee = {
-      empId: 0,
-      firstName: '',
-      lastName: '',
-      preferredName: '',
-      email: '',
-      jobId: 0,
-      officeId: 0,
-      deptId: 0,
-      phoneNumber: '',
-      skypeId: '',
-    }
+    this.employee = new Employee();
     this.isDetailsForm = false;
     this.isEditMode = false;
+    this.closeForm.emit(false);
   }
 
   deleteEmployee() {
@@ -107,7 +89,7 @@ export class EmployeeFormComponent implements OnInit {
       data: { title: 'Confirm Delete', message: 'Are you sure you want to delete employee?' }
     }).afterClosed().subscribe(result => {
       if (result == true) {
-        this.employeeService.deleteEmployee(this.selectedEmployee.empId).subscribe(()=>{
+        this.employeeService.deleteEmployee(this.selectedEmployee.empId).subscribe(() => {
           this.getUpdatedEmployeesData();
           this.snackBar.open('Employee Deleted', 'Dismiss', { duration: 3000, });
         });
@@ -115,9 +97,9 @@ export class EmployeeFormComponent implements OnInit {
       }
     });
   }
-  getUpdatedEmployeesData()
-  {
-    this.employeeService.getEmployees().subscribe(employees=>{
+
+  getUpdatedEmployeesData() {
+    this.employeeService.getEmployees().subscribe(employees => {
       this.sharedService.updateChanges(employees);
     });
   }

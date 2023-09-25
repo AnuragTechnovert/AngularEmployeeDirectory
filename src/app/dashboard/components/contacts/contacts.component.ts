@@ -34,5 +34,9 @@ export class ContactsComponent implements OnInit {
     this.selectedEmployee = employee;
     this.isOpenForm = !this.isOpenForm;
   }
+
+  closeForm(data:any){
+    this.isOpenForm = data;
+  }
 }
 
