@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { Register } from 'src/app/models/register';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register',
@@ -10,20 +10,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent {
 
-  registerFormModel:User = {
-    userName: '',
-    email: '',
-    password: ''
-  }
+  registerFormModel:Register = new Register();
 
   constructor(private authService:AuthService,private snackBar:MatSnackBar, private router:Router){}
 
-  onRegisterFormSubmit(){
-    // this.authService.registerUser(this.registerFormModel).subscribe(()=>{
-    //   this.snackBar.open('User Registered Successfully', 'Dismiss', {
-    //     duration: 3000
-    //   });
-    //   this.router.navigate(['login']);
-    // })
+  registerFormSubmit(){
+    this.authService.registerUser(this.registerFormModel).subscribe(()=>{
+      this.snackBar.open('User Registered Successfully', 'Dismiss', {
+        duration: 3000
+      });
+      this.router.navigate(['login']);
+    })
   }
 }

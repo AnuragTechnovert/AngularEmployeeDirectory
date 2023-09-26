@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { Register } from '../models/register';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { Login } from '../models/login';
@@ -12,8 +12,8 @@ export class AuthService {
 
   constructor(private apiService: ApiService, private jwtHelper: JwtHelperService) { }
 
-  public registerUser(registerUser: User): Observable<any> {
-    return this.apiService.post(registerUser, 'Auth/SignUp');
+  public registerUser(registerUser: Register): Observable<any> {
+    return this.apiService.post(registerUser, 'Auth/Register');
   }
 
   public loginRequest(loginUser: Login): Observable<any> {

@@ -9,14 +9,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class HeaderComponent {
 
-  loggedinUser: string = '';
+  loggedinUserName: string = '';
   constructor(private jwtHelper: JwtHelperService, private router: Router) {
-    // const token = localStorage.getItem("jwt");
-    // if (token) {
-    //   const decodedToken = this.jwtHelper.decodeToken(token);
-    //   this.loggedinUser = decodedToken.sub;
-    // } else
-      // this.router.navigate(['/login']);
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      this.loggedinUserName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+      // const userRole = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    } else
+      this.router.navigate(['/login']);
   }
 
   logout() {

@@ -57,11 +57,15 @@
 
 .btn-logout{
     cursor: pointer;
-    background-color: 	#b23b3b;
+    background-color: 	#c52828;
     border: none;
     color: whitesmoke;
     font-size:large;
-    height: 60px;
+    height: 60px;   
     border-radius: 50px;
     padding: 10px;
+}
+
+.btn-logout:hover{
+    background-color: 	#9a1b1ba9;
 }

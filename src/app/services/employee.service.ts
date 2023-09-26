@@ -3,15 +3,20 @@ import { Employee } from 'src/app/models/employee';
 import { SharedService } from './shared.service';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
+import { HttpApiResponse } from '../models/httpApiResponse';
 
 @Injectable()
 export class EmployeeService {
 
-  constructor(private sharedService: SharedService, private apiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
   public addEmployee(employee: Employee): Observable<any> {
     return this.apiService.post(employee, 'Employee/Add');
   }
+
+  // public getEmployees(): Observable<HttpApiResponse<Employee[]>> {
+  //   return this.apiService.get('Employee/Get');
+  // }
 
   public getEmployees(): Observable<Employee[]> {
     return this.apiService.get('Employee/Get');
