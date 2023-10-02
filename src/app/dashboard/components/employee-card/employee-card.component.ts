@@ -25,6 +25,7 @@ export class EmployeeCardComponent {
 
   getDeptNameById(deptId: number): string | undefined {
     const department = this.masterData.departments.find((data: Department) => data.deptId === deptId);
+    console.log(department)
     return department ? department.deptName : undefined;
   }
 }

@@ -15,11 +15,18 @@ export class RegisterComponent {
   constructor(private authService:AuthService,private snackBar:MatSnackBar, private router:Router){}
 
   registerFormSubmit(){
-    this.authService.registerUser(this.registerFormModel).subscribe(()=>{
-      this.snackBar.open('User Registered Successfully', 'Dismiss', {
-        duration: 3000
-      });
-      this.router.navigate(['login']);
+    this.authService.registerUser(this.registerFormModel).subscribe((resp)=>{
+      if(resp.isSuccess){
+        this.snackBar.open('User Registered Successfully', 'Dismiss', {
+          duration: 3000
+        });
+        this.router.navigate(['login']);
+      }
+      else{
+        this.snackBar.open('something went wrong', 'Dismiss', {
+          duration: 3000
+        });
+      }
     })
   }
 }

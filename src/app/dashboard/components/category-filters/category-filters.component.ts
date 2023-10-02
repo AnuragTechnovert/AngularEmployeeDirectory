@@ -43,8 +43,8 @@ export class CategoryFiltersComponent implements OnInit {
       this.selectedJobTitleId = null;
       this.updateCategoryFilters(employees);
     })
-    this.employeeService.getEmployees().subscribe(employees => {
-      this.updateCategoryFilters(employees);
+    this.employeeService.getEmployees().subscribe(resp => {
+      this.updateCategoryFilters(resp.data!);
     })
   }
 

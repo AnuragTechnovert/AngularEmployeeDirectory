@@ -11,34 +11,27 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
 
-  loginModel:Login =  new Login(); 
+  loginModel: Login = new Login();
 
   constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
-  login() {
-    this.authService.loginRequest(this.loginModel).pipe(
-      catchError((error) => {
-        //200OK, 404 is when endpoint is not found
-        if (error.status === 404) {
-          this.snackBar.open('User not found', 'Dismiss', {
-            duration: 3000
-          });
-        } else {
-          console.error('Error:', error);
-          //either username or password is incorrect
-          this.snackBar.open('Enter Valid Details', 'Dismiss', {
-            duration: 3000
-          });
-        }
-        return throwError(error);
-      })
-    ).subscribe(response => {
-        const token = (<any>response).token;
-        localStorage.setItem("jwt", token);
+   login() {
+    this.authService.loginRequest(this.loginModel).subscribe(resp => {
+      if(resp.isSuccess)
+      {
+        const token = resp.data;
+        localStorage.setItem("jwt", token!);
         this.router.navigate(['dashboard']);
         this.snackBar.open('Login successfully', 'Dismiss', {
           duration: 3000
         });
-      });
+      }
+      else{
+        console.log(resp.errorMessage);
+        this.snackBar.open('Please enter valid credentials', 'Dismiss', {
+          duration: 3000
+        });
+      }
+   })
    }
 }

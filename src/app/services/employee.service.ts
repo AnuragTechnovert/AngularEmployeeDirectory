@@ -10,27 +10,23 @@ export class EmployeeService {
 
   constructor(private apiService: ApiService) { }
 
-  public addEmployee(employee: Employee): Observable<any> {
+  public addEmployee(employee: Employee): Observable<HttpApiResponse<boolean>> {
     return this.apiService.post(employee, 'Employee/Add');
   }
 
-  // public getEmployees(): Observable<HttpApiResponse<Employee[]>> {
-  //   return this.apiService.get('Employee/Get');
-  // }
-
-  public getEmployees(): Observable<Employee[]> {
+  public getEmployees(): Observable<HttpApiResponse<Employee[]>> {
     return this.apiService.get('Employee/Get');
   }
 
-  public getEmployeeById(employeeId: number): Observable<Employee> {
+  public getEmployeeById(employeeId: number): Observable<HttpApiResponse<Employee>> {
     return this.apiService.getById(`Employee/GetById/${employeeId}`);
   }
 
-  public deleteEmployee(employeeId: number): Observable<boolean> {
+  public deleteEmployee(employeeId: number): Observable<HttpApiResponse<boolean>> {
     return this.apiService.delete(`Employee/Delete/${employeeId}`);
   }
 
-  public updateEmployee(employeeId: number, employee: Employee): Observable<any> {
+  public updateEmployee(employeeId: number, employee: Employee): Observable<HttpApiResponse<boolean>> {
     return this.apiService.put(employee, `Employee/Update/${employeeId}`);
   }
 }

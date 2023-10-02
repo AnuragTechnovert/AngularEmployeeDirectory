@@ -63,6 +63,7 @@ export class EmployeeFormComponent implements OnInit {
 
   updateEmployee(): void {
     if (isFormValid(this.employee, this.snackBar)) {
+      // this.employee.empId = this.selectedEmployee.empId;
       this.employeeService.updateEmployee(this.selectedEmployee.empId, this.employee).subscribe(() => {
         this.getUpdatedEmployeesData();
         this.snackBar.open('Employee Updated Successfully', 'Dismiss', {
@@ -99,8 +100,8 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   getUpdatedEmployeesData() {
-    this.employeeService.getEmployees().subscribe(employees => {
-      this.sharedService.updateChanges(employees);
+    this.employeeService.getEmployees().subscribe(resp => {
+      this.sharedService.updateChanges(resp.data!);
     });
   }
 }

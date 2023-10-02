@@ -51,8 +51,8 @@ export class FilterService {
 
   filterEmployees() {
     let filteredEmployees: Employee[] = [];
-    this.employeeService.getEmployees().subscribe(employees => {
-      filteredEmployees = employees;
+    this.employeeService.getEmployees().subscribe(resp => {
+      filteredEmployees = resp.data!;
       if (this.filters.deptId) {
         filteredEmployees = filteredEmployees.filter((employee) =>
           employee.deptId == this.filters.deptId
@@ -116,8 +116,8 @@ export class FilterService {
       filterById: null as number | null
     };
     this.employeeService.getEmployees().subscribe(resp => {
-      this.filteredEmployeesSubject.next(resp);
-      this.sharedService.updateChanges(resp);
+      this.filteredEmployeesSubject.next(resp.data!);
+      this.sharedService.updateChanges(resp.data!);
     })
   }
 }

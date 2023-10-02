@@ -21,10 +21,10 @@ export class MasterDataService {
       return masterData;
     }
 
-    this.apiService.get('Employee/GetMasterData').subscribe((masterData) => {
-      localStorage.setItem('masterData', JSON.stringify(masterData));
-      this.masterData = masterData;
-      return masterData;
+    this.apiService.get('Employee/GetMasterData').subscribe((resp) => {
+      localStorage.setItem('masterData', JSON.stringify(resp.data));
+      this.masterData = resp.data;
+      return resp.data;
     })
   }
 

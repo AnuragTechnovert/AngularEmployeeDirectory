@@ -25,8 +25,8 @@ export class ContactsComponent implements OnInit {
     this.sharedService.getEmployeesDataSubject().subscribe(employees => {
       this.employees = employees;
     })
-    this.employeeService.getEmployees().subscribe(employees => {
-      this.employees = employees;
+    this.employeeService.getEmployees().subscribe(resp => {
+      this.employees = resp.data!;
     })
   }
 
